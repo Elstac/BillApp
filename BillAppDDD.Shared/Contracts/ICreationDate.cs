@@ -2,7 +2,7 @@
 
 namespace BillAppDDD.Shared.Contracts
 {
-    interface ICreationDate
+    public interface ICreationDate
     {
         DateTime CreationDate { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿using BillAppDDD.Modules.Bills.Application.Dto;
+﻿using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Domain.Bills;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;

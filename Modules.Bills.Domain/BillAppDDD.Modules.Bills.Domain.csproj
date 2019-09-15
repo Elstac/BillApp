@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Products\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BillAppDDD.BuildingBlocks.Domain\BillAppDDD.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\BillAppDDD.Shared\BillAppDDD.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using BillAppDDD.Modules.Bills.Application.Bills.AddBill;
 using BillAppDDD.Modules.Bills.Application.Bills.GetAllBills;
-using BillAppDDD.Modules.Bills.Domain.Bills;
+using BillAppDDD.Modules.Bills.Application.Stores.GetAllStores;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +49,7 @@ namespace BillAppDDD.Modules.Bills.Application
 
             builder.RegisterType<AddBillCommandHandler>().AsImplementedInterfaces().InstancePerDependency();
             builder.RegisterType<GetAllBillsQueryHandler>().AsImplementedInterfaces().InstancePerDependency();
+            builder.RegisterType<GetAllStoresQueryHandler>().AsImplementedInterfaces().InstancePerDependency();
 
             BillsCompositionRoot.SetContainer(builder.Build());
         }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BillAppDDD.Modules.Bills.Application.Bills.AddBill;
+﻿using BillAppDDD.Modules.Bills.Application.Bills.AddBill;
+using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Application.Bills.GetAllBills;
 using BillAppDDD.Modules.Bills.Application.Contracts;
-using BillAppDDD.Modules.Bills.Application.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,9 +29,9 @@ namespace BillAppDDD.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBill([FromBody]BillInputDto billInput)
+        public async Task<IActionResult> AddBill([FromBody]BillInputDto newBill)
         {
-            await billsModule.ExecuteCommandAsync(new AddBill(billInput));
+            await billsModule.ExecuteCommandAsync(new AddBill(newBill));
 
             return Ok();
         }

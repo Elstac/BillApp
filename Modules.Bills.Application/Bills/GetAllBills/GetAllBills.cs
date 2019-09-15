@@ -1,5 +1,5 @@
-﻿using BillAppDDD.Modules.Bills.Application.Contracts;
-using BillAppDDD.Modules.Bills.Application.Dto;
+﻿using BillAppDDD.Modules.Bills.Application.Bills.Dto;
+using BillAppDDD.Modules.Bills.Application.Contracts;
 using System.Collections.Generic;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.GetAllBills

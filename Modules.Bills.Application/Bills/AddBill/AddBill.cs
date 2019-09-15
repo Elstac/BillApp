@@ -1,5 +1,5 @@
-﻿using BillAppDDD.Modules.Bills.Application.Contracts;
-using BillAppDDD.Modules.Bills.Application.Dto;
+﻿using BillAppDDD.Modules.Bills.Application.Bills.Dto;
+using BillAppDDD.Modules.Bills.Application.Contracts;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 {
