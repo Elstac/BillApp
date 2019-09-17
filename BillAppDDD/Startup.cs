@@ -1,11 +1,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using BillAppDDD.Modules.Bills;
-using BillAppDDD.Modules.Bills.Application;
+using BillAppDDD.Modules.Bills.Application.Configuration;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using Modules.Bills.Infrastructure;
 using System;
 using System.Reflection;
+using AutoMapper;
 
 namespace BillAppDDD
 {
@@ -32,6 +31,8 @@ namespace BillAppDDD
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSpaStaticFiles(configuration =>
             {

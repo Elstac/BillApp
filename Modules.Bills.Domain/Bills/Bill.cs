@@ -28,6 +28,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             Date = date;
             Store = store;
             Purchases = purchases;
+            CreationDate = DateTime.UtcNow;
         }
 
     }
