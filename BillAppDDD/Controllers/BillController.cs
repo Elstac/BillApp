@@ -31,7 +31,7 @@ namespace BillAppDDD.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBill([FromBody]BillInputDto newBill)
         {
-            await billsModule.ExecuteCommandAsync(new AddBill(newBill));
+            await billsModule.ExecuteCommandAsync(new AddBill(newBill.Date,newBill.StoreId,newBill.Purchases));
 
             return Ok();
         }
