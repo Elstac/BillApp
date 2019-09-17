@@ -7,7 +7,6 @@ using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using URF.Core.Abstractions;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 {
@@ -16,16 +15,13 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
         private IExtendedRepository<Bill> repository;
         private IExtendedRepository<Product> productRepository;
         private IExtendedRepository<Store> storeRepository;
-        private IUnitOfWork unitOfWork;
 
         public AddBillCommandHandler(
             IExtendedRepository<Bill> repository,
-            IUnitOfWork unitOfWork,
             IExtendedRepository<Product> productRepository,
             IExtendedRepository<Store> storeRepository)
         {
             this.repository = repository;
-            this.unitOfWork = unitOfWork;
             this.productRepository = productRepository;
             this.storeRepository = storeRepository;
         }
@@ -57,9 +53,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var toAdd = new Bill(input.Date,store,purchases);
             repository.InsertAggregate(toAdd);
-
-            await unitOfWork.SaveChangesAsync();
-
+            
             return Unit.Value;
         }
     }

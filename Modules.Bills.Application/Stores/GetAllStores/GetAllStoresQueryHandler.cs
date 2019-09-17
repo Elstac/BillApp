@@ -25,6 +25,7 @@ namespace BillAppDDD.Modules.Bills.Application.Stores.GetAllStores
                 .Select(
                     s => new StoreDto
                     {
+                        Id = s.Id.ToString(),
                         Name = s.Name
                     }
                 )

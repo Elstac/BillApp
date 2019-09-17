@@ -1,19 +1,20 @@
 ﻿import React, { Component } from 'react';
 import { DropdownList } from 'react-widgets';
 import { ProductList } from '../Products/ProductsList';
+import { FormInput } from '../Shared/FormInput';
 
 export class NewBill extends Component {
     static displayName = NewBill.name;
 
     constructor(props) {
         super(props);
+        var date = new Date();
 
+        var dateF = date.getFullYear() + '-' + date.getMonth().toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
         this.state = {
-            bill: {
-                date: new Date(),
-                storeId: null,
-                promotions: null
-            },
+            date: dateF,
+            storeId: null,
+            promotions: null,
             products:[]
         };
 
@@ -32,6 +33,14 @@ export class NewBill extends Component {
         this.setState({ products: prods });
     }
 
+    handleStoreChange(storeId) {
+        this.setState({ storeId });
+    }
+
+    handleDateChange(event) {
+        this.setState({ date: event.target.value });
+    }
+
     handleSubmit() {
         var request = {
             method: 'POST',
@@ -40,30 +49,30 @@ export class NewBill extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                newBill: {
-                    date: this.state.bill.date,
-                    storeId: 'ss',
-                    purchases: this.state.products.map(p => {
-                        return {
-                            product: {
-                                name: p.name,
-                                barcode: p.barcode,
-                                id: '',
-                                barcode: '',
-                                price: 0
-                            },
-                            date: this.state.bill.date,
-                            amount: p.amount,
-                            price: p.price
-                        }
-                    })
-                } 
+                Date: this.state.date,
+                StoreId: this.state.storeId,
+                Purchases: this.state.products.map(p => {
+                    return {
+                        Product: {
+                            Name: p.name,
+                            Barcode: p.barcode,
+                            Id: p.id,
+                            Price: 0
+                        },
+                        Date: this.state.date,
+                        Amount: p.amount,
+                        Price: p.price
+                    }
+                })
+                
             })
         };
 
-        fetch('/api/bill', request)
-        .catch((error) => alert('Error during operation.'))
-        .finally(() => window.location.href = '/')
+        alert(request.body);
+
+        //fetch('/api/bill', request)
+        //.catch((error) => alert('Error during operation. ' + error))
+        //.finally(() => window.location.href = '/')
     }
 
     render() {
@@ -74,13 +83,15 @@ export class NewBill extends Component {
                     <div className="row">
                         <div className="col-12">
                             <p>Date:</p>
-                            <input className="form-control" type="date"/>
+                            <input name="date" className="form-control" type="date" value={this.state.date} onChange={this.handleDateChange.bind(this)} />
                         </div>
                         <div className="col-6">
                             <p>Store:</p>
                             {this.state.stores != null ?
                                 <DropdownList
-                                data={this.state.stores.map(store => store.name)}
+                                    textField='name'
+                                    data={this.state.stores}
+                                    onChange={value=>this.handleStoreChange(value.id)}
                                 /> :
                                 <DropdownList
                                     busy

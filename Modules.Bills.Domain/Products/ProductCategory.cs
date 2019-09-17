@@ -10,6 +10,11 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
         {
         }
 
+        public ProductCategory(string name) : base(Guid.NewGuid())
+        {
+            Name = name;
+        }
+
         public string Name { get; set; }
         public ICollection<ProductCategory> Subcategories { get; set; }
         public ICollection<Product> Products { get; set; }

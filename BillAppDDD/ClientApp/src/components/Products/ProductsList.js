@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Product } from './Product';
 import { NewProductPopUp } from './NewProductPopUp';
+import { AddProductPopUp } from './AddProductPopUp';
 
 export class ProductList extends Component {
 
@@ -40,10 +41,10 @@ export class ProductList extends Component {
                 <div className="container text-center">
                     <button type="button" className="btn btn-primary w-50" onClick={this.newProductClickHandle.bind(this)}>Add product</button>
                 </div>
-                <NewProductPopUp
+                <AddProductPopUp
                     hidden={!this.state.newProduct}
                     handleConfirm={this.props.handleNewProduct}
-                    handleCancel={this.handleCancel.bind(this)}
+                    handleHide={this.handleCancel.bind(this)}
                 />
             </div>
         );
