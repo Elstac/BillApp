@@ -28,31 +28,31 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
         public async Task<Unit> Handle(AddBill request, CancellationToken cancellationToken)
         {
-            var input = request.BillInput;
+            //var input = request.BillInput;
 
-            var productsIdCollection = input.Purchases.Select(p => p.Product.Id).ToList();
+            //var productsIdCollection = input.Purchases.Select(p => p.Product.Id).ToList();
 
-            var products = productRepository
-                .Queryable()
-                .Where(p => productsIdCollection.Contains(p.Id.ToString()))
-                .ToList();
+            //var products = productRepository
+            //    .Queryable()
+            //    .Where(p => productsIdCollection.Contains(p.Id.ToString()))
+            //    .ToList();
 
-            var purchases = input.Purchases
-                .Select(p => new Purchase(
-                        products.FirstOrDefault(pr => pr.Id.ToString() == p.Product.Id),
-                        p.Date,
-                        p.Amount,
-                        p.Price,
-                        null
-                    ))
-                .ToList();
+            //var purchases = input.Purchases
+            //    .Select(p => new Purchase(
+            //            products.FirstOrDefault(pr => pr.Id.ToString() == p.Product.Id),
+            //            p.Date,
+            //            p.Amount,
+            //            p.Price,
+            //            null
+            //        ))
+            //    .ToList();
 
-            var store = storeRepository
-                .Queryable()
-                .FirstOrDefault(s => s.Id.ToString() == input.StoreId);
+            //var store = storeRepository
+            //    .Queryable()
+            //    .FirstOrDefault(s => s.Id.ToString() == input.StoreId);
 
-            var toAdd = new Bill(input.Date,store,purchases);
-            repository.InsertAggregate(toAdd);
+            //var toAdd = new Bill(input.Date,store,purchases);
+            //repository.InsertAggregate(toAdd);
             
             return Unit.Value;
         }
