@@ -114,6 +114,7 @@ export class AddProductPopUp extends Component {
                     hidden={false}
                     handleConfirm={this.props.handleConfirm}
                     handleCancel={this.handleCancel.bind(this)}
+                    handleReturn={()=>this.setState({ newProduct: false })}
                 />
                 )
         }

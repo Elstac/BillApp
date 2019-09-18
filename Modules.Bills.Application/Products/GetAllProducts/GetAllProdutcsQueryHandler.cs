@@ -3,6 +3,7 @@ using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetAllProducts
         {
             var productCollection = productRepository
                 .Queryable()
+                .Include(p=>p.Category)
                 .ToArray();
 
             return mapper.Map<ProductDto[]>(productCollection);

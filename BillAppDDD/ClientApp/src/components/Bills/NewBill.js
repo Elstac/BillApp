@@ -57,7 +57,8 @@ export class NewBill extends Component {
                             Name: p.name,
                             Barcode: p.barcode,
                             Id: p.id,
-                            Price: 0
+                            Price: 0,
+                            CategoryId: p.categoryId
                         },
                         Date: this.state.date,
                         Amount: p.amount,
@@ -116,7 +117,7 @@ export class NewBill extends Component {
                         </div>
                     </div>
                     <div className="text-center mt-3">
-                        <input className="btn btn-success w-100" type="submit" value="Add bill" />
+                        <input className="btn btn-success w-75" type="submit" value="Add bill" />
                     </div>
                 </form>
             </div>
