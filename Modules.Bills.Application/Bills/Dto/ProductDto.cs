@@ -9,5 +9,6 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.Dto
         public string Name { get; set; }
         public string Barcode { get; set; }
         public float Price { get; set; }
+        public string CategoryId { get; set; }
     }
 }

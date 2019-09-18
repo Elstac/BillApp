@@ -17,15 +17,18 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
         private IExtendedRepository<Bill> repository;
         private IExtendedRepository<Product> productRepository;
         private IExtendedRepository<Store> storeRepository;
+        private IExtendedRepository<ProductCategory> categoryRepository;
 
         public AddBillCommandHandler(
             IExtendedRepository<Bill> repository,
             IExtendedRepository<Product> productRepository,
-            IExtendedRepository<Store> storeRepository)
+            IExtendedRepository<Store> storeRepository, 
+            IExtendedRepository<ProductCategory> categoryRepository)
         {
             this.repository = repository;
             this.productRepository = productRepository;
             this.storeRepository = storeRepository;
+            this.categoryRepository = categoryRepository;
         }
 
         public async Task<Unit> Handle(AddBill request, CancellationToken cancellationToken)
@@ -48,16 +51,13 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 .Where(p=>existingProductsIdCollection.Contains(p.Id.ToString()))
                 .ToList();
 
-            foreach (var product in products)
-                productRepository.Update(product);
-
             var newProductsPurchases = request.Purchases
                 .Where(p => newProductsIdCollection.Contains(p.Product.Id))
                 .Select(p =>new Purchase(
                     new Product(
                         p.Product.Name,
                         new ProductBarcode { Value = p.Product.Barcode },
-                        null,
+                        new Price {Value = (p.Price/p.Amount) },
                         null
                         ),
                     request.Date,
@@ -67,6 +67,8 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                     )
                 )
                 .ToList();
+
+            
 
             var purchases = new List<Purchase>();
 
