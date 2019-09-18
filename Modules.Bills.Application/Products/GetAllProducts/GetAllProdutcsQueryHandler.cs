@@ -1,4 +1,5 @@
-﻿using BillAppDDD.Modules.Bills.Application.Bills.Dto;
+﻿using AutoMapper;
+using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
@@ -11,26 +12,21 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetAllProducts
     class GetAllProdutcsQueryHandler : IRequestHandler<GetAllProducts, ProductDto[]>
     {
         private IExtendedRepository<Product> productRepository;
+        private IMapper mapper;
 
-        public GetAllProdutcsQueryHandler(IExtendedRepository<Product> productRepository)
+        public GetAllProdutcsQueryHandler(IExtendedRepository<Product> productRepository, IMapper mapper)
         {
             this.productRepository = productRepository;
+            this.mapper = mapper;
         }
 
         public async Task<ProductDto[]> Handle(GetAllProducts request, CancellationToken cancellationToken)
         {
             var productCollection = productRepository
                 .Queryable()
-                .Select(p => new ProductDto
-                {
-                    Id = p.Id.ToString(),
-                    Barcode = p.Barcode.Value,
-                    Name = p.Name,
-                    Price = p.Price.Value
-                })
                 .ToArray();
 
-            return productCollection;
+            return mapper.Map<ProductDto[]>(productCollection);
         }
     }
 }
