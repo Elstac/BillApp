@@ -3,7 +3,7 @@ using BillAppDDD.Modules.Bills.Application.Products.Dto;
 using BillAppDDD.Modules.Bills.Domain.Products;
 using System.Linq;
 
-namespace BillAppDDD.Modules.Bills.Application.AutomapperProfiles
+namespace BillAppDDD.Modules.Bills.Application.Configuration.AutomapperProfiles
 {
     class ProductCategoryProfile:Profile
     {
