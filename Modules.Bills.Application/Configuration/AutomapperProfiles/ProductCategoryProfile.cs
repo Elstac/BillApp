@@ -11,6 +11,10 @@ namespace BillAppDDD.Modules.Bills.Application.Configuration.AutomapperProfiles
         {
             CreateMap<ProductCategory, ProductCategoryDto>()
                 .ForMember(
+                dto => dto.Id,
+                opt => opt.MapFrom(b => b.Id)
+                )
+                .ForMember(
                 dto => dto.Name,
                 opt => opt.MapFrom(b => b.Name)
                 )
@@ -25,8 +29,7 @@ namespace BillAppDDD.Modules.Bills.Application.Configuration.AutomapperProfiles
                     .Select(sc => new ProductCategoryDto
                     {
                         Name = sc.Name
-                    }
-                    )
+                    })
                     )
                 );
         }
