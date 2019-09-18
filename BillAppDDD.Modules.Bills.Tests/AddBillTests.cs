@@ -245,5 +245,33 @@ namespace BillAppDDD.Modules.Bills.Tests
             //Assert
             Assert.Equal(expectedStore, createdBill.Store);
         }
+
+        [Fact]
+        public async void Newly_created_product_contains_price_equal_to_cost_divided_by_amount()
+        {
+            //Arrange
+            var billInterceptor = new RepositoryInterceptor<Bill>();
+
+            var handler = new HandlerBuilder()
+                .WithBillInterceptor(billInterceptor)
+                .Build();
+
+            var command = new AddBill(
+                new DateTime(),
+                "sss",
+                new PurchaseInputDto[] {
+                    new PurchaseInputDto{Product = new ProductDto{Id = "", Barcode="AXD"},Price=10,Amount=2},
+                }
+                );
+
+            //Act
+            await handler.Handle(command, CancellationToken.None);
+            var createdBill = billInterceptor.InterceptedEntity;
+
+            //Assert
+            Assert.NotNull(createdBill.Purchases);
+            Assert.Equal(1, createdBill.Purchases.Count);
+            Assert.NotNull(createdBill.Purchases.FirstOrDefault(p => p.Product.Price.Value == 5));
+        }
     }
 }
