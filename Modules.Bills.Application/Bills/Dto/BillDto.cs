@@ -1,9 +1,14 @@
-﻿using System;
+﻿using BillAppDDD.Modules.Bills.Application.Products.Dto;
+using BillAppDDD.Modules.Bills.Application.Stores.Dto;
+using System;
+using System.Collections.Generic;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.Dto
 {
     public class BillDto
     {
         public DateTime Date { get; set; }
+        public StoreDto Store { get; set; }
+        public ICollection<PurchaseDto> Purchases { get; set; }
     }
 }

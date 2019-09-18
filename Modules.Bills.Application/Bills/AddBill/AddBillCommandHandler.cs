@@ -48,8 +48,8 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 .Where(p=>existingProductsIdCollection.Contains(p.Id.ToString()))
                 .ToList();
 
-            //foreach (var product in products)
-            //    productRepository.Update(product);
+            foreach (var product in products)
+                productRepository.Update(product);
 
             var newProductsPurchases = request.Purchases
                 .Where(p => newProductsIdCollection.Contains(p.Product.Id))
@@ -94,7 +94,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 .Queryable()
                 .FirstOrDefault(s=>s.Id == Guid.Parse(request.StoreId));
 
-            var bill = new Bill(new DateTime(), store, purchases);
+            var bill = new Bill(request.Date, store, purchases);
 
             repository.InsertAggregate(bill);
 
