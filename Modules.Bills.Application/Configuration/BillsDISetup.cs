@@ -14,6 +14,7 @@ namespace BillAppDDD.Modules.Bills.Application.Configuration
             builder.RegisterModule(new MediatorModule());
             builder.RegisterModule(new ProcessingModule());
             builder.RegisterModule(new DataAccessModule(connectionString,loggerFactory));
+            builder.RegisterModule(new MappingModule());
 
             builder.Register<ServiceFactory>(context =>
             {
