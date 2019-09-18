@@ -1,4 +1,5 @@
-﻿using BillAppDDD.Modules.Bills.Application.Stores.Dto;
+﻿using AutoMapper;
+using BillAppDDD.Modules.Bills.Application.Stores.Dto;
 using BillAppDDD.Modules.Bills.Domain.Stores;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
@@ -12,26 +13,21 @@ namespace BillAppDDD.Modules.Bills.Application.Stores.GetAllStores
     class GetAllStoresQueryHandler : IRequestHandler<GetAllStores, List<StoreDto>>
     {
         private IExtendedRepository<Store> storeRepository;
+        private IMapper mapper;
 
-        public GetAllStoresQueryHandler(IExtendedRepository<Store> storeRepository)
+        public GetAllStoresQueryHandler(IExtendedRepository<Store> storeRepository, IMapper mapper)
         {
             this.storeRepository = storeRepository;
+            this.mapper = mapper;
         }
 
         public async Task<List<StoreDto>> Handle(GetAllStores request, CancellationToken cancellationToken)
         {
             var storeCollection = storeRepository
                 .Queryable()
-                .Select(
-                    s => new StoreDto
-                    {
-                        Id = s.Id.ToString(),
-                        Name = s.Name
-                    }
-                )
                 .ToList();
 
-            return storeCollection;
+            return mapper.Map<List<StoreDto>>(storeCollection);
         }
     }
 }
