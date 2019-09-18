@@ -68,11 +68,9 @@ export class NewBill extends Component {
             })
         };
 
-        alert(request.body);
-
-        //fetch('/api/bill', request)
-        //.catch((error) => alert('Error during operation. ' + error))
-        //.finally(() => window.location.href = '/')
+        fetch('/api/bill', request)
+        .catch((error) => alert('Error during operation. ' + error))
+        .finally(() => window.location.href = '/')
     }
 
     render() {

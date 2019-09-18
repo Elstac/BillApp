@@ -4,6 +4,8 @@ using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Domain.Stores;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,32 +30,74 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
         public async Task<Unit> Handle(AddBill request, CancellationToken cancellationToken)
         {
-            //var input = request.BillInput;
+            if (request.Purchases.Count() == 0)
+                throw new InvalidOperationException();
 
-            //var productsIdCollection = input.Purchases.Select(p => p.Product.Id).ToList();
+            var existingProductsIdCollection = request.Purchases
+                .Where(p =>!string.IsNullOrEmpty(p.Product.Id))
+                .Select(p => p.Product.Id)
+                .ToList();
 
-            //var products = productRepository
-            //    .Queryable()
-            //    .Where(p => productsIdCollection.Contains(p.Id.ToString()))
-            //    .ToList();
+            var newProductsIdCollection = request.Purchases
+                .Where(p => string.IsNullOrEmpty(p.Product.Id))
+                .Select(p => p.Product.Id)
+                .ToList();
 
-            //var purchases = input.Purchases
-            //    .Select(p => new Purchase(
-            //            products.FirstOrDefault(pr => pr.Id.ToString() == p.Product.Id),
-            //            p.Date,
-            //            p.Amount,
-            //            p.Price,
-            //            null
-            //        ))
-            //    .ToList();
+            var products = productRepository
+                .Queryable()
+                .Where(p=>existingProductsIdCollection.Contains(p.Id.ToString()))
+                .ToList();
 
-            //var store = storeRepository
-            //    .Queryable()
-            //    .FirstOrDefault(s => s.Id.ToString() == input.StoreId);
+            //foreach (var product in products)
+            //    productRepository.Update(product);
 
-            //var toAdd = new Bill(input.Date,store,purchases);
-            //repository.InsertAggregate(toAdd);
-            
+            var newProductsPurchases = request.Purchases
+                .Where(p => newProductsIdCollection.Contains(p.Product.Id))
+                .Select(p =>new Purchase(
+                    new Product(
+                        p.Product.Name,
+                        new ProductBarcode { Value = p.Product.Barcode },
+                        null,
+                        null
+                        ),
+                    request.Date,
+                    p.Amount,
+                    p.Price,
+                    null
+                    )
+                )
+                .ToList();
+
+            var purchases = new List<Purchase>();
+
+            foreach (var product in products)
+            {
+                foreach (var purchaseDto in request.Purchases)
+                {
+                    if(product.Id.ToString() == purchaseDto.Product.Id)
+                    {
+                        purchases.Add(
+                            new Purchase(
+                                product,
+                                request.Date,
+                                purchaseDto.Amount,
+                                purchaseDto.Price,
+                                null
+                            ));
+                    }
+                }
+            }
+
+            purchases.AddRange(newProductsPurchases);
+
+            var store = storeRepository
+                .Queryable()
+                .FirstOrDefault(s=>s.Id == Guid.Parse(request.StoreId));
+
+            var bill = new Bill(new DateTime(), store, purchases);
+
+            repository.InsertAggregate(bill);
+
             return Unit.Value;
         }
     }
