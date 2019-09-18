@@ -293,8 +293,14 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var billInterceptor = new RepositoryInterceptor<Bill>();
 
+            var categories = new List<ProductCategory>()
+            {
+                expectedCategory
+            };
+
             var handler = new HandlerBuilder()
                 .WithBillInterceptor(billInterceptor)
+                .WithCustomCategoryRepo(categories)
                 .Build();
 
             var command = new AddBill(
