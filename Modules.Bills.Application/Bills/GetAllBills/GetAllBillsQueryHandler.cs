@@ -23,7 +23,9 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.GetAllBills
 
         public async Task<List<BillDto>> Handle(GetAllBills request, CancellationToken cancellationToken)
         {
-            var billsCollection = repository.Queryable().ToList();
+            var billsCollection = repository
+                .Queryable()
+                .ToList();
 
             return mapper.Map<List<BillDto>>(billsCollection);
         }

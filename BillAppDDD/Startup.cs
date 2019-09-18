@@ -90,6 +90,7 @@ namespace BillAppDDD
             builder.Populate(services);
 
             builder.RegisterModule<BillsAutofacModule>();
+            
 
             BillsDISetup.Initialize(
                 "Server=.;Database=entityframework;Trusted_Connection=True;MultipleActiveResultSets=true;Database=BillApp.Bills",

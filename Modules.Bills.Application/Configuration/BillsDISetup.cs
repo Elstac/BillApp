@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

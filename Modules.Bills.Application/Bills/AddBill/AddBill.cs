@@ -1,15 +1,24 @@
 ﻿using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Application.Contracts;
+using System;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 {
     public class AddBill :CommandBase
     {
-        public AddBill(BillInputDto billInput)
+        public AddBill(
+            DateTime date,
+            string storeId,
+            PurchaseInputDto[] purchases
+            )
         {
-            BillInput = billInput;
+            Date = date;
+            StoreId = storeId;
+            Purchases = purchases;
         }
 
-        public BillInputDto BillInput{ get; set; }
+        public DateTime Date { get; set; }
+        public string StoreId { get; set; }
+        public PurchaseInputDto[] Purchases { get; set; }
     }
 }
