@@ -3,6 +3,7 @@ using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Application.Bills.GetAllBills;
 using BillAppDDD.Modules.Bills.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace BillAppDDD.Controllers
 {
+
     [Route("api/[controller]")]
     public class BillController : Controller
     {
