@@ -51,6 +51,8 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 .Where(p=>existingProductsIdCollection.Contains(p.Id.ToString()))
                 .ToList();
 
+            var categories = categoryRepository.Queryable().ToList();
+
             var newProductsPurchases = request.Purchases
                 .Where(p => newProductsIdCollection.Contains(p.Product.Id))
                 .Select(p =>new Purchase(
@@ -58,7 +60,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                         p.Product.Name,
                         new ProductBarcode { Value = p.Product.Barcode },
                         new Price {Value = (p.Price/p.Amount) },
-                        null
+                        categories.FirstOrDefault(c=>c.Id.ToString() == p.Product.CategoryId)
                         ),
                     request.Date,
                     p.Amount,
@@ -67,8 +69,6 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                     )
                 )
                 .ToList();
-
-            
 
             var purchases = new List<Purchase>();
 
