@@ -3,6 +3,7 @@ using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Domain.Bills;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -25,6 +26,8 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.GetAllBills
         {
             var billsCollection = repository
                 .Queryable()
+                .Include(b=>b.Store)
+                .Include(b=>b.Purchases)
                 .ToList();
 
             return mapper.Map<List<BillDto>>(billsCollection);
