@@ -40,7 +40,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
 
         public void AddPurchaseBasedOnExistingProduct(Product product)
         {
-
+            Purchases.Add(new Purchase(product, new DateTime(), 0, 0, null));
         }
 
     }
