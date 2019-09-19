@@ -7,23 +7,6 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 {
     public class AddPurchaseBasedOnExistingProductTests
     {
-        [Fact]
-        public void New_purchase_contains_given_product()
-        {
-            //Arrange
-            var bill = new BillBuilder().Build();
-
-            Assert.Empty(bill.Purchases);
-
-            var product = new Product("", new ProductBarcode(), new Price(), null);
-
-            //Act
-            bill.AddPurchaseBasedOnExistingProduct(product,0,0);
-
-            //Assert
-            Assert.Single(bill.Purchases);
-            Assert.Equal(product,bill.Purchases.FirstOrDefault().Product);
-        }
 
         [Fact]
         public void New_purchase_contains_date_from_bill()
@@ -37,7 +20,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             Assert.Empty(bill.Purchases);
 
-            var product = new Product("", new ProductBarcode(), new Price(), null);
+            var product = new Product("", new ProductBarcode(""), new Price(0), null);
 
             //Act
             bill.AddPurchaseBasedOnExistingProduct(product,0,0);
@@ -48,7 +31,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
         }
 
         [Fact]
-        public void New_purchase_contains_amount_and_cost()
+        public void Change_product_cost_based_on_new_cost_and_amount()
         {
             //Arrange
             var bill = new BillBuilder()
@@ -56,15 +39,13 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             Assert.Empty(bill.Purchases);
 
-            var product = new Product("", new ProductBarcode(), new Price(), null);
+            var product = new Product("", new ProductBarcode(""), new Price(0), null);
 
             //Act
-            bill.AddPurchaseBasedOnExistingProduct(product, 10, 11);
+            bill.AddPurchaseBasedOnExistingProduct(product, 5.0f, 15.0f);
 
             //Assert
-            Assert.Single(bill.Purchases);
-            Assert.Equal(10, bill.Purchases.FirstOrDefault().Amount);
-            Assert.Equal(11, bill.Purchases.FirstOrDefault().Cost);
+            Assert.Equal(3, bill.Purchases.FirstOrDefault().Product.Price.Value);
         }
     }
 }

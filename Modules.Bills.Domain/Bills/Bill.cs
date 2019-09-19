@@ -33,6 +33,18 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             CreationDate = DateTime.UtcNow;
         }
 
+        public Bill(
+            DateTime date,
+            Store store
+            )
+            : base(Guid.NewGuid())
+        {
+            Date = date;
+            Store = store;
+            Purchases = new List<Purchase>();
+            CreationDate = DateTime.UtcNow;
+        }
+
         public float GetSum()
         {
             return Purchases.Sum(p => p.Cost);
@@ -40,8 +52,31 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
 
         public void AddPurchaseBasedOnExistingProduct(Product product,float amount, float price)
         {
-            Purchases.Add(new Purchase(product, Date, amount, price, null));
+            product = product.Update("", null, new Price(price / amount) ,null);
+
+            Purchases.Add(new Purchase(product, Date, amount, price));
         }
 
+        public void AddPurchaseBasedOnNewProduct(
+            string name,
+            string barcode,
+            ProductCategory category,
+            float amount,
+            float price)
+        {
+            Purchases.Add(
+                new Purchase(
+                    new Product(
+                        name,
+                        new ProductBarcode(barcode),
+                        new Price(price/amount),
+                        category
+                        ),
+                    Date,
+                    amount,
+                    price
+                    )
+                );
+        }
     }
 }

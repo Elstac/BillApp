@@ -37,7 +37,25 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
             ProductCategory category
             )
         {
-            return new Product();
+            if (string.IsNullOrEmpty(name))
+                name = Name;
+
+            if (barcode is null)
+                barcode = new ProductBarcode(Barcode.Value);
+
+            if (price is null)
+                price = new Price(Price.Value);
+
+            var newProduct = new Product(
+                    name,
+                    barcode,
+                    price,
+                    category
+                );
+
+            newProduct.LastVersion = this;
+
+            return newProduct;
         }
     }
 }

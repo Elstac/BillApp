@@ -13,8 +13,8 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
         {
             var purchases = new List<Purchase>
             {
-                new Purchase(null,new DateTime(),0,10,null),
-                new Purchase(null,new DateTime(),0,15,null)
+                new Purchase(null,new DateTime(),0,10),
+                new Purchase(null,new DateTime(),0,15)
             };
 
             var bill = new BillBuilder()

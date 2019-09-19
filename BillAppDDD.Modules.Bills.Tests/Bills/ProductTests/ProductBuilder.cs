@@ -11,10 +11,29 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
         public ProductBuilder()
         {
             name = "";
-            barcode = new ProductBarcode { Value = "" };
-            price = new Price { Value = 0 };
+            barcode = new ProductBarcode("");
+            price = new Price ( 0 );
         }
 
+        public ProductBuilder WithName(string name)
+        {
+            this.name = name;
+
+            return this;
+        }
+
+        public ProductBuilder WithBarcode(string value)
+        {
+            barcode.Value = value;
+
+            return this;
+        }
+        public ProductBuilder WithPrice(float value)
+        {
+            price.Value = value;
+
+            return this;
+        }
         public Product  Build()
         {
             return new Product(

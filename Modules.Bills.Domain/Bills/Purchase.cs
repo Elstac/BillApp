@@ -15,8 +15,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             Product product,
             DateTime date,
             float amount,
-            float cost,
-            Bill bill
+            float cost
             ) 
             : base(Guid.NewGuid())
         {
@@ -24,7 +23,6 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             Date = date;
             Amount = amount;
             Cost = cost;
-            Bill = bill;
         }
 
         public Guid BillId { get; set; }
