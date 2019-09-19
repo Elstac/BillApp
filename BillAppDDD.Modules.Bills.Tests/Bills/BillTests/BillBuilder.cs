@@ -3,7 +3,7 @@ using BillAppDDD.Modules.Bills.Domain.Stores;
 using System;
 using System.Collections.Generic;
 
-namespace BillAppDDD.Modules.Bills.Tests.Bills.Bill
+namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 {
     internal class BillBuilder
     {

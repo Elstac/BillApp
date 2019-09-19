@@ -1,6 +1,6 @@
 ﻿using BillAppDDD.Modules.Bills.Domain.Products;
 
-namespace BillAppDDD.Modules.Bills.Tests.Bills.Product
+namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
 {
     internal class ProductBuilder
     {
@@ -15,13 +15,13 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.Product
             price = new Price { Value = 0 };
         }
 
-        public Domain.Products.Product  Build()
+        public Product  Build()
         {
-            return new Domain.Products.Product(
+            return new Product(
                 name,
                 barcode,
                 price,
-                null)
+                null);
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace BillAppDDD.Modules.Bills.Tests.Bills.Bill
+namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 {
 
     public class SumTests
