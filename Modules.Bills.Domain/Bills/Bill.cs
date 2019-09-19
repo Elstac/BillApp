@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BillAppDDD.BuildingBlocks.Domain;
 using BillAppDDD.Modules.Bills.Domain.Stores;
 using BillAppDDD.Shared.Contracts;
@@ -29,6 +30,11 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             Store = store;
             Purchases = purchases;
             CreationDate = DateTime.UtcNow;
+        }
+
+        public float GetSum()
+        {
+            return Purchases.Sum(p => p.Cost);
         }
 
     }
