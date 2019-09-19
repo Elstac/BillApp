@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BillAppDDD.BuildingBlocks.Domain;
+using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Domain.Stores;
 using BillAppDDD.Shared.Contracts;
 
@@ -35,6 +36,11 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
         public float GetSum()
         {
             return Purchases.Sum(p => p.Cost);
+        }
+
+        public void AddPurchaseBasedOnExistingProduct(Product product)
+        {
+
         }
 
     }
