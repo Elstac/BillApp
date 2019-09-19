@@ -2,6 +2,11 @@
 {
     public class ProductBarcode
     {
+        public ProductBarcode(string value)
+        {
+            Value = value;
+        }
+
         public string Value { get; set; }
     }
 }

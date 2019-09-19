@@ -2,6 +2,11 @@
 {
     public class Price
     {
+        public Price(float value)
+        {
+            Value = value;
+        }
+
         public float Value { get; set; }
     }
 }

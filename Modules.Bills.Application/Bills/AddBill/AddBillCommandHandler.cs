@@ -15,18 +15,15 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
     public class AddBillCommandHandler : ICommandHandler<AddBill>
     {
         private IExtendedRepository<Bill> repository;
-        private IExtendedRepository<Product> productRepository;
         private IExtendedRepository<Store> storeRepository;
         private IExtendedRepository<ProductCategory> categoryRepository;
 
         public AddBillCommandHandler(
             IExtendedRepository<Bill> repository,
-            IExtendedRepository<Product> productRepository,
             IExtendedRepository<Store> storeRepository, 
             IExtendedRepository<ProductCategory> categoryRepository)
         {
             this.repository = repository;
-            this.productRepository = productRepository;
             this.storeRepository = storeRepository;
             this.categoryRepository = categoryRepository;
         }
@@ -36,67 +33,57 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
             if (request.Purchases.Count() == 0)
                 throw new InvalidOperationException();
 
-            var existingProductsIdCollection = request.Purchases
-                .Where(p =>!string.IsNullOrEmpty(p.Product.Id))
-                .Select(p => p.Product.Id)
-                .ToList();
-
-            var newProductsIdCollection = request.Purchases
-                .Where(p => string.IsNullOrEmpty(p.Product.Id))
-                .Select(p => p.Product.Id)
-                .ToList();
-
-            var products = productRepository
+            var store = storeRepository
                 .Queryable()
-                .Where(p=>existingProductsIdCollection.Contains(p.Id.ToString()))
-                .ToList();
+                .FirstOrDefault(s => s.Id == Guid.Parse(request.StoreId));
 
-            var categories = categoryRepository.Queryable().ToList();
+            var bill = new Bill(request.Date, store);
 
-            var newProductsPurchases = request.Purchases
-                .Where(p => newProductsIdCollection.Contains(p.Product.Id))
-                .Select(p =>new Purchase(
-                    new Product(
-                        p.Product.Name,
-                        new ProductBarcode { Value = p.Product.Barcode },
-                        new Price {Value = (p.Price/p.Amount) },
-                        categories.FirstOrDefault(c=>c.Id.ToString() == p.Product.CategoryId)
-                        ),
-                    request.Date,
-                    p.Amount,
-                    p.Price,
-                    null
-                    )
+            var existingProducts = request.Purchases
+                .Where(p => !string.IsNullOrEmpty(p.Product.Id))
+                .Select(
+                    p => new
+                    {
+                        Product = new Product(
+                            p.Product.Name,
+                            new ProductBarcode(p.Product.Barcode),
+                            new Price(p.Product.Price),
+                            null
+                            ),
+                        p.Amount,
+                        p.Price
+                    }
                 )
                 .ToList();
 
-            var purchases = new List<Purchase>();
+            foreach (var product in existingProducts)
+                bill.AddPurchaseBasedOnExistingProduct(product.Product,product.Amount,product.Price);
 
-            foreach (var product in products)
-            {
-                foreach (var purchaseDto in request.Purchases)
+            var categories = categoryRepository.Queryable().ToList();
+
+            var newProducts = request.Purchases
+                .Where(p => string.IsNullOrEmpty(p.Product.Id))
+                .Select(
+                p => new
                 {
-                    if(product.Id.ToString() == purchaseDto.Product.Id)
-                    {
-                        purchases.Add(
-                            new Purchase(
-                                product,
-                                request.Date,
-                                purchaseDto.Amount,
-                                purchaseDto.Price,
-                                null
-                            ));
-                    }
-                }
+                    p.Product,
+                    Category = categories.FirstOrDefault(c => c.Id.ToString() == p.Product.CategoryId),
+                    p.Amount,
+                    p.Price
+                })
+                .ToList();
+
+            foreach (var product in newProducts)
+            {
+                var prod = product.Product;
+                bill.AddPurchaseBasedOnNewProduct(
+                    prod.Name,
+                    prod.Barcode,
+                    product.Category,
+                    product.Amount,
+                    product.Price
+                    );
             }
-
-            purchases.AddRange(newProductsPurchases);
-
-            var store = storeRepository
-                .Queryable()
-                .FirstOrDefault(s=>s.Id == Guid.Parse(request.StoreId));
-
-            var bill = new Bill(request.Date, store, purchases);
 
             repository.InsertAggregate(bill);
 

@@ -66,7 +66,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
         public AddBillCommandHandler Build()
         {
-            return new AddBillCommandHandler(billRepo, productRepo, storeRepo,categoryRepo);
+            return new AddBillCommandHandler(billRepo, storeRepo,categoryRepo);
         }
     }
 
@@ -83,44 +83,7 @@ namespace BillAppDDD.Modules.Bills.Tests
                 );
         }
 
-        [Fact]
-        public async void Get_collection_of_products_from_product_repo()
-        {
-            //Arrange
-            var billInterceptor = new RepositoryInterceptor<Bill>();
-
-            var products = new List<Product>
-            {
-                new Product(),
-                new Product(),
-                new Product()
-            };
-
-            var handler = new HandlerBuilder()
-                .WithBillInterceptor(billInterceptor)
-                .WithCustomProductRepo(products)
-                .Build();
-
-            var command = new AddBill(
-                new DateTime(),
-                "sss",
-                new PurchaseInputDto[] {
-                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id.ToString()}},
-                    new PurchaseInputDto{Product = new ProductDto{Id = products[1].Id.ToString()}}
-                }
-                );
-
-            //Act
-            await handler.Handle(command, CancellationToken.None);
-            var createdBill = billInterceptor.InterceptedEntity;
-
-            //Assert
-            Assert.NotNull(createdBill.Purchases);
-            Assert.Equal(2,createdBill.Purchases.Count);
-            Assert.NotNull(createdBill.Purchases.FirstOrDefault(p=>p.Product.Id == products[0].Id));
-            Assert.NotNull(createdBill.Purchases.FirstOrDefault(p=>p.Product.Id == products[1].Id));
-        }
-
+        
         [Fact]
         public async void Create_collection_of_products_from_dtos_with_epmty_ids()
         {
@@ -220,7 +183,7 @@ namespace BillAppDDD.Modules.Bills.Tests
             var createdBill = billInterceptor.InterceptedEntity;
 
             //Assert
-            Assert.Equal(2,createdBill.Purchases.Where(p => p.Date == billDate).ToList().Count);
+            Assert.Equal(2, createdBill.Purchases.Where(p => p.Date == billDate).ToList().Count);
         }
 
         [Fact]
