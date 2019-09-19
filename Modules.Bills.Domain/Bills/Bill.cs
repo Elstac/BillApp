@@ -38,9 +38,9 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             return Purchases.Sum(p => p.Cost);
         }
 
-        public void AddPurchaseBasedOnExistingProduct(Product product)
+        public void AddPurchaseBasedOnExistingProduct(Product product,float amount, float price)
         {
-            Purchases.Add(new Purchase(product, new DateTime(), 0, 0, null));
+            Purchases.Add(new Purchase(product, Date, amount, price, null));
         }
 
     }

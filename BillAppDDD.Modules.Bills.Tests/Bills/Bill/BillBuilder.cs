@@ -25,6 +25,13 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.Bill
             return this;
         }
 
+        public BillBuilder WithDate(DateTime date)
+        {
+            this.date = date;
+
+            return this;
+        }
+
         public Domain.Bills.Bill Build()
         {
             return new Domain.Bills.Bill(
