@@ -14,7 +14,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.Bill
         public BillBuilder()
         {
             date = new DateTime();
-            purchases = null;
+            purchases = new List<Purchase>();
             store = null;
         }
 
