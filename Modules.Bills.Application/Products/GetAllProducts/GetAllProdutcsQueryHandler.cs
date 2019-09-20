@@ -26,6 +26,7 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetAllProducts
             var productCollection = productRepository
                 .Queryable()
                 .Include(p=>p.Category)
+                .Where(p => p.LatestVersion == true)
                 .ToArray();
 
             return mapper.Map<ProductDto[]>(productCollection);

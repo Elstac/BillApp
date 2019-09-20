@@ -22,13 +22,15 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
             Price = price;
             Category = category;
             LastVersion = null;
+            LatestVersion = true;
         }
 
-        public string Name { get; set; }
-        public ProductBarcode Barcode { get; set; }
-        public Price Price { get; set; }
-        public ProductCategory Category { get; set; }
-        public Product LastVersion { get; set; }
+        public string Name { get; private set; }
+        public ProductBarcode Barcode { get; private set; }
+        public Price Price { get; private set; }
+        public ProductCategory Category { get; private set; }
+        public Product LastVersion { get; private set; }
+        public bool LatestVersion { get; private set; }
 
         public Product Update(
             string name,
@@ -53,9 +55,13 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
                     category
                 );
 
+            LatestVersion = false;
             newProduct.LastVersion = this;
+            newProduct.LatestVersion = true;
 
             return newProduct;
         }
+
+
     }
 }
