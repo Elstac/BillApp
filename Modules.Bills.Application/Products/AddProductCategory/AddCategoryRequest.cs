@@ -1,6 +1,6 @@
 ﻿namespace BillAppDDD.Modules.Bills.Application.Products.AddProductCategory
 {
-    public class AddCategoryDto
+    public class AddCategoryRequest
     {
         public string Name { get; set; }
     }

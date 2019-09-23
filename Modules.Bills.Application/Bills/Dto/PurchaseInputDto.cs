@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BillAppDDD.Modules.Bills.Application.Products.Dto;
+using System;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.Dto
 {

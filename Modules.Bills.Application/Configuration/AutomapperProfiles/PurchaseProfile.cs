@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using BillAppDDD.Modules.Bills.Application.Products.Dto;
+using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Domain.Bills;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BillAppDDD.Modules.Bills.Application.Configuration.AutomapperProfiles
 {

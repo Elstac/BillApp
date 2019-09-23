@@ -1,6 +1,6 @@
 ﻿namespace BillAppDDD.Modules.Bills.Application.Products.AddProduct
 {
-    public class AddProductDto
+    public class AddProductRequest
     {
         public string Name { get; set; }
         public string Barcode { get; set; }

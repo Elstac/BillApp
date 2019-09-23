@@ -22,14 +22,14 @@ namespace BillAppDDD.Controllers
 
 
         // GET: api/<controller>
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task< IEnumerable<StoreDto>> Get()
         {
             return await billsModule.ExecuteQueryAsync(new GetAllStores());
         }
 
-        [HttpPost]
-        public async Task AddStore(StoreInputDto store)
+        [HttpPost("Add")]
+        public async Task AddStore(AddStoreRequest store)
         {
             await billsModule.ExecuteCommandAsync(new AddStore(store.Name));
         }

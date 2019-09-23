@@ -1,5 +1,6 @@
 using BillAppDDD.Modules.Bills.Application.Bills.AddBill;
 using BillAppDDD.Modules.Bills.Application.Bills.Dto;
+using BillAppDDD.Modules.Bills.Application.Products.Dto;
 using BillAppDDD.Modules.Bills.Domain.Bills;
 using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Domain.Stores;

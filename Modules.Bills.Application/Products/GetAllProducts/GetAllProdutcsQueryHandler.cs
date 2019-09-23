@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BillAppDDD.Modules.Bills.Application.Bills.Dto;
+using BillAppDDD.Modules.Bills.Application.Products.Dto;
 using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;

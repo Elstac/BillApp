@@ -1,4 +1,4 @@
-﻿namespace BillAppDDD.Modules.Bills.Application.Products.Dto
+﻿namespace BillAppDDD.Modules.Bills.Application.Bills.Dto
 {
     public class PurchaseDto
     {

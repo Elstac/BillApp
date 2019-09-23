@@ -25,7 +25,7 @@ namespace BillAppDDD.Controllers
             this.billsModule = billsModule;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ICollection<BillDto>> AllBills()
         {
             var billsCollection = await billsModule.ExecuteQueryAsync(new GetAllBills());
@@ -41,10 +41,10 @@ namespace BillAppDDD.Controllers
             return billDetails;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddBill([FromBody]BillInputDto newBill)
+        [HttpPost("Add")]
+        public async Task<IActionResult> AddBill([FromBody]AddBillRequest request)
         {
-            await billsModule.ExecuteCommandAsync(new AddBill(newBill.Date,newBill.StoreId,newBill.Purchases));
+            await billsModule.ExecuteCommandAsync(new AddBill(request.Date,request.StoreId,request.Purchases));
 
             return Ok();
         }

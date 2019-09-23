@@ -10,7 +10,7 @@ export class BillList extends Component {
             bills: null
         };
 
-        fetch('/api/bill')
+        fetch('/api/bill/getall')
             .then(response => response.json())
             .then(
                 data => {

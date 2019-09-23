@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.Dto
 {
-    public class BillInputDto
+    public class AddBillRequest
     {
         public DateTime Date { get; set; }
         public string StoreId { get; set; }

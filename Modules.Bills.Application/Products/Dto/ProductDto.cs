@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BillAppDDD.Modules.Bills.Application.Bills.Dto
+namespace BillAppDDD.Modules.Bills.Application.Products.Dto
 {
     public class ProductDto
     {

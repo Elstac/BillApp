@@ -18,7 +18,7 @@ export class NewBill extends Component {
             products:[]
         };
 
-        fetch('/api/stores')
+        fetch('/api/stores/getall')
             .then(response => response.json())
             .then(data => {
                 this.setState({ stores: data });
@@ -69,7 +69,7 @@ export class NewBill extends Component {
             })
         };
 
-        fetch('/api/bill', request)
+        fetch('/api/bill/add', request)
         .catch((error) => alert('Error during operation. ' + error))
         .finally(() => window.location.href = '/')
     }

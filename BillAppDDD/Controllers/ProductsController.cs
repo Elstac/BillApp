@@ -31,8 +31,8 @@ namespace BillAppDDD.Controllers
             return await billsModule.ExecuteQueryAsync(new GetAllProducts());
         }
 
-        [HttpPost("AddProduct")]
-        public async Task AddProduct([FromBody]AddProductDto product)
+        [HttpPost("Add")]
+        public async Task AddProduct([FromBody]AddProductRequest product)
         {
             await billsModule.ExecuteCommandAsync(new AddProduct
             {
@@ -50,8 +50,8 @@ namespace BillAppDDD.Controllers
             return await billsModule.ExecuteQueryAsync(new GetAllProductCategories());
         }
 
-        [HttpPost("Categories/AddCategory")]
-        public async Task AddProduct([FromBody]AddCategoryDto category)
+        [HttpPost("Categories/Add")]
+        public async Task AddProduct([FromBody]AddCategoryRequest category)
         {
             await billsModule.ExecuteCommandAsync(new AddProductCategory
             {
@@ -61,7 +61,7 @@ namespace BillAppDDD.Controllers
         }
 
         [HttpPut("Categories/AddProduct")]
-        public async Task AddProductToCategory([FromBody]AddProductToCategoryDto input)
+        public async Task AddProductToCategory([FromBody]AddProductToCategoryRequest input)
         {
             await billsModule.ExecuteCommandAsync(new AddProductToCategory
             {
