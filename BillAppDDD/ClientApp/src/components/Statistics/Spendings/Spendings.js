@@ -3,19 +3,11 @@ import { TimeSpan } from '../../Shared/TimeSpan';
 
 export class Spendings extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            span: { from: null, to: null }
-        };
-    }
-
     render() {
         
         var bills = this.props.bills;
-        var from = this.state.span.from;
-        var to = this.state.span.to;
+        var from = this.props.span.from;
+        var to = this.props.span.to;
 
         if (bills === null)
             return (
@@ -35,14 +27,11 @@ export class Spendings extends Component {
                 0 :
                 bills.length === 1 ?
                     bills[0].sum :
-                    bills.reduce((b1, b2) => b1.sum + b2.sum);
+                bills.reduce((a, b2) => a + (b2['sum'] || 0),0);
 
         return (
             <div className="container jumbotron py-1">
                 <h2>Spendings</h2>
-                <TimeSpan
-                    handleSpanChange={(span) => this.setState({ span })}
-                />
                 <div className="text-center mt-3">
                     <h3>Total spendings: {sum}</h3>
                 </div>

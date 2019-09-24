@@ -6,6 +6,8 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
 {
     public class Purchase : Entity
     {
+        private float cost;
+
         public Purchase():base(Guid.NewGuid())
         {
 
@@ -22,7 +24,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             Product = product;
             Date = date;
             Amount = amount;
-            Cost = cost;
+            this.cost = cost;
         }
 
         public Guid BillId { get; set; }
@@ -33,6 +35,6 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
 
         public DateTime Date { get; set; }
         public float Amount { get; set; }
-        public float Cost { get; set; }
+        public float Cost { get => (float)Math.Round(cost, 2); set => cost = value; }
     }
 }

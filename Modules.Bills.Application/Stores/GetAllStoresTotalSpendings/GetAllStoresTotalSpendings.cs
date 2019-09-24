@@ -2,9 +2,9 @@
 using BillAppDDD.Modules.Bills.Application.Stores.Dto;
 using System.Collections.Generic;
 
-namespace BillAppDDD.Modules.Bills.Application.Stores.GetAllStores
+namespace BillAppDDD.Modules.Bills.Application.Stores.GetAllStoresTotalSpendings
 {
-    public class GetAllStores : IQuery<List<StoreDetailsDto>>
+    public class GetAllStoresTotalSpendings:IQuery<List<StoreSpendingsDto>>
     {
     }
 }

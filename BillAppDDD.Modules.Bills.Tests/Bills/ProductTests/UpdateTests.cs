@@ -64,5 +64,24 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
             Assert.Equal("barcode", newProduct.Barcode.Value);
             Assert.Equal(2137, newProduct.Price.Value);
         }
+
+        [Fact]
+        public void Old_product_has_unchanged_properties()
+        {
+            //Arrange
+            var product = new ProductBuilder()
+                .WithName("oldName")
+                .WithBarcode("barcode")
+                .WithPrice(10.5f)
+                .Build();
+
+            //Act
+            var newProduct = product.Update("name", new ProductBarcode("xx"), new Price(10), null);
+
+            //Assert
+            Assert.Equal("oldName", product.Name);
+            Assert.Equal("barcode", product.Barcode.Value);
+            Assert.Equal(10.5f, product.Price.Value);
+        }
     }
 }

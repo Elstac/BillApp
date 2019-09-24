@@ -1,12 +1,15 @@
-﻿namespace BillAppDDD.Modules.Bills.Domain.Products
+﻿using System;
+
+namespace BillAppDDD.Modules.Bills.Domain.Products
 {
     public class Price
     {
+        private float value;
         public Price(float value)
         {
-            Value = value;
+            this.value = value;
         }
 
-        public float Value { get; set; }
+        public float Value { get => (float)Math.Round(value, 2); set => this.value = value; }
     }
 }

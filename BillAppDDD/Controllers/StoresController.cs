@@ -2,6 +2,7 @@
 using BillAppDDD.Modules.Bills.Application.Stores.AddStore;
 using BillAppDDD.Modules.Bills.Application.Stores.Dto;
 using BillAppDDD.Modules.Bills.Application.Stores.GetAllStores;
+using BillAppDDD.Modules.Bills.Application.Stores.GetAllStoresTotalSpendings;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,9 +24,17 @@ namespace BillAppDDD.Controllers
 
         // GET: api/<controller>
         [HttpGet("GetAll")]
-        public async Task< IEnumerable<StoreDto>> Get()
+        public async Task< IEnumerable<StoreDetailsDto>> Get()
         {
-            return await billsModule.ExecuteQueryAsync(new GetAllStores());
+            var storeCollection = await billsModule.ExecuteQueryAsync(new GetAllStores());
+            return storeCollection;
+        }
+
+        [HttpGet("Spendings/GetAll")]
+        public async Task<IEnumerable<StoreSpendingsDto>> GetSpendings()
+        {
+            var storeCollection = await billsModule.ExecuteQueryAsync(new GetAllStoresTotalSpendings());
+            return storeCollection;
         }
 
         [HttpPost("Add")]

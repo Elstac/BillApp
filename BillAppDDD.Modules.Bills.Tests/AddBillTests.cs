@@ -67,7 +67,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
         public AddBillCommandHandler Build()
         {
-            return new AddBillCommandHandler(billRepo, storeRepo,categoryRepo);
+            return new AddBillCommandHandler(billRepo, storeRepo,categoryRepo,productRepo);
         }
     }
 

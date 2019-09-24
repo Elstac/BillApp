@@ -47,5 +47,23 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
             //Assert
             Assert.Equal(3, bill.Purchases.FirstOrDefault().Product.Price.Value);
         }
+
+        [Fact]
+        public void Purchase_contains_same_product_if_cost_doesnt_change()
+        {
+            //Arrange
+            var bill = new BillBuilder()
+                .Build();
+
+            Assert.Empty(bill.Purchases);
+
+            var product = new Product("", new ProductBarcode(""), new Price(12.5f), null);
+
+            //Act
+            bill.AddPurchaseBasedOnExistingProduct(product, 2.0f, 25.0f);
+
+            //Assert
+            Assert.Equal(product, bill.Purchases.FirstOrDefault().Product);
+        }
     }
 }

@@ -5,7 +5,6 @@ using BillAppDDD.Modules.Bills.Application.Bills.GetBillDetails;
 using BillAppDDD.Modules.Bills.Application.Bills.RemoveBill;
 using BillAppDDD.Modules.Bills.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

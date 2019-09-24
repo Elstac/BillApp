@@ -52,7 +52,10 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
 
         public void AddPurchaseBasedOnExistingProduct(Product product,float amount, float price)
         {
-            product = product.Update("", null, new Price(price / amount) ,null);
+            var cost = price / amount;
+
+            if(product.Price.Value != cost)
+                product = product.Update("", null, new Price(price / amount) ,null);
 
             Purchases.Add(new Purchase(product, Date, amount, price));
         }

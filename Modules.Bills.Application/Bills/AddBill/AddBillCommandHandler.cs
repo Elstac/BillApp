@@ -4,6 +4,7 @@ using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Domain.Stores;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,19 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
     {
         private IExtendedRepository<Bill> repository;
         private IExtendedRepository<Store> storeRepository;
+        private IExtendedRepository<Product> productRepository;
         private IExtendedRepository<ProductCategory> categoryRepository;
 
         public AddBillCommandHandler(
             IExtendedRepository<Bill> repository,
-            IExtendedRepository<Store> storeRepository, 
-            IExtendedRepository<ProductCategory> categoryRepository)
+            IExtendedRepository<Store> storeRepository,
+            IExtendedRepository<ProductCategory> categoryRepository,
+            IExtendedRepository<Product> productRepository)
         {
             this.repository = repository;
             this.storeRepository = storeRepository;
             this.categoryRepository = categoryRepository;
+            this.productRepository = productRepository;
         }
 
         public async Task<Unit> Handle(AddBill request, CancellationToken cancellationToken)
@@ -39,20 +43,22 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var bill = new Bill(request.Date, store);
 
+            var productsIds = request.Purchases.Select(pu => pu.Product.Id).ToList();
+
+            var x = productRepository
+                .Queryable()
+                .Where(p=>productsIds.Contains(p.Id.ToString()))
+                .ToList();
+
             var existingProducts = request.Purchases
                 .Where(p => !string.IsNullOrEmpty(p.Product.Id))
                 .Select(
-                    p => new
-                    {
-                        Product = new Product(
-                            p.Product.Name,
-                            new ProductBarcode(p.Product.Barcode),
-                            new Price(p.Product.Price),
-                            null
-                            ),
-                        p.Amount,
-                        p.Price
-                    }
+                    p=> new
+                        {
+                            Product = x.FirstOrDefault(pr => pr.Id.ToString() == p.Product.Id),
+                            p.Amount,
+                            p.Price
+                        }
                 )
                 .ToList();
 
