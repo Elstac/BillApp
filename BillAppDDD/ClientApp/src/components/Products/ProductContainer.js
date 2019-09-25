@@ -1,11 +1,10 @@
 ﻿import React, { Component } from 'react';
-import { StoreTile } from './StoreTile';
 import { CRUDContainer } from '../Shared/CRUDContainer';
 import { CRUDTile } from '../Shared/CRUDTile';
 
-export class StoresContainer extends CRUDContainer {
+export class ProductContainer extends CRUDContainer {
     constructor(props) {
-        super(props, '/api/stores/getall');
+        super(props, '/api/products/getall');
     }
 
     render() {
@@ -21,13 +20,13 @@ export class StoresContainer extends CRUDContainer {
                 <CRUDTile
                     key={i}
                     data={v}
-                    detailsLink={'/storeDetails/'+v.id}
+                    detailsLink='/kutas'
                 />
             </div>
         );
 
         return (
-            <div className="container">
+            <div>
                 {super.render(content)}
             </div>
         );
