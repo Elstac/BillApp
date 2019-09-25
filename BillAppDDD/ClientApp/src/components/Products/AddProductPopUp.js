@@ -54,7 +54,7 @@ export class AddProductPopUp extends Component {
         let newState = { ...this.state };
 
         if (name === 'amount')
-            newState['price'].value *= value;
+            newState['price'] *= value;
         
         newState[name] = value;
 
