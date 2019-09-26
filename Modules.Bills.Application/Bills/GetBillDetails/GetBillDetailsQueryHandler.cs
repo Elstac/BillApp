@@ -1,36 +1,46 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using BillAppDDD.BuildingBlocks.Infrastructure;
 using BillAppDDD.Modules.Bills.Application.Bills.Dto;
-using BillAppDDD.Modules.Bills.Domain.Bills;
-using BillAppDDD.Modules.Bills.Infrastructure;
+using BillAppDDD.Modules.Bills.Application.Stores.Dto;
+using Dapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.GetBillDetails
 {
     class GetBillDetailsQueryHandler : IRequestHandler<GetBillDetails, BillDetailsDto>
     {
-        private IExtendedRepository<Bill> billRepo;
-        private IMapper mapper;
+        private IDbConnectionFactory dbConnectionFactory;
 
-        public GetBillDetailsQueryHandler(IExtendedRepository<Bill> billRepo, IMapper mapper)
+        public GetBillDetailsQueryHandler(IDbConnectionFactory dbConnectionFactory)
         {
-            this.billRepo = billRepo;
-            this.mapper = mapper;
+            this.dbConnectionFactory = dbConnectionFactory;
         }
 
         public async Task<BillDetailsDto> Handle(GetBillDetails request, CancellationToken cancellationToken)
         {
-            var bill = billRepo
-                .Queryable()
-                .Include(b=>b.Purchases)
-                .ThenInclude(p=>p.Product)
-                .Include(b=>b.Store)
-                .FirstOrDefault(b => b.Id == request.BillId);
+            var connection = dbConnectionFactory.GetDbConnection();
 
-            return mapper.Map<BillDetailsDto>(bill);
+            const string sql = "SELECT * FROM BillDetails WHERE Id = @BillId";
+
+            var rawBillData = connection.Query<BillDetailsV>(sql, new { request.BillId }).FirstOrDefault();
+
+            return new BillDetailsDto
+            {
+                Date = rawBillData.Date,
+                Id = rawBillData.Id,
+                Store = new StoreDto
+                {
+                    Id = rawBillData.StoreId,
+                    Name = rawBillData.StoreName
+                },
+                Purchases = JsonConvert.DeserializeObject<List<PurchaseDto>>(rawBillData.PurchasesJSON)
+            };
         }
     }
 }
