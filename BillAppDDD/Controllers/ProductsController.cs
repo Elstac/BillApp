@@ -6,6 +6,7 @@ using BillAppDDD.Modules.Bills.Application.Products.AddProductToCategory;
 using BillAppDDD.Modules.Bills.Application.Products.Dto;
 using BillAppDDD.Modules.Bills.Application.Products.GetAllProductCategories;
 using BillAppDDD.Modules.Bills.Application.Products.GetAllProducts;
+using BillAppDDD.Modules.Bills.Application.Products.GetProductDetails;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,12 @@ namespace BillAppDDD.Controllers
         public async Task<IEnumerable<ProductDto>> GetProducts()
         {
             return await billsModule.ExecuteQueryAsync(new GetAllProducts());
+        }
+
+        [HttpGet("Details/{id}")]
+        public async Task<ProductDto> GetProducts(Guid id)
+        {
+            return await billsModule.ExecuteQueryAsync(new GetProductDetails(id));
         }
 
         [HttpPost("Add")]
