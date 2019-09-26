@@ -20,7 +20,7 @@ export class ProductContainer extends CRUDContainer {
                 <CRUDTile
                     key={i}
                     data={v}
-                    detailsLink='/kutas'
+                    detailsLink={'/productDetails/'+v.id}
                 />
             </div>
         );
