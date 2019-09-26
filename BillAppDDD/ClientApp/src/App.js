@@ -11,6 +11,7 @@ import { StoreDetails } from './components/Stores/StoreDetails';
 import { CategoryDetails } from './components/Products/Categories/CategoryDetails';
 import { ProductCategoryContainer } from './components/Products/Categories/ProductCategoryContainer';
 import { ProductContainer } from './components/Products/ProductContainer';
+import { ProductDetails } from './components/Products/ProductDetails';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -28,6 +29,7 @@ export default class App extends Component {
             <Route exact path='/billDetails/:id' component={BillDetailedWindow} />
             <Route exact path='/storeDetails/:id' component={StoreDetails} />
             <Route exact path='/categoryDetails/:id' component={CategoryDetails} />
+            <Route exact path='/productDetails/:id' component={ProductDetails} />
         </Layout>
     );
   }
