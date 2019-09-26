@@ -39,7 +39,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var store = storeRepository
                 .Queryable()
-                .FirstOrDefault(s => s.Id == Guid.Parse(request.StoreId));
+                .FirstOrDefault(s => s.Id == request.StoreId);
 
             var bill = new Bill(request.Date, store);
 

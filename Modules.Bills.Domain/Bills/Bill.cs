@@ -10,26 +10,28 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
 {
     public class Bill : Entity, IAggregateRoot, ICreationDate
     {
-        public DateTime Date { get; set; }
-        public Store Store { get; set; }
-        public ICollection<Purchase> Purchases { get; set; }
+        private DateTime date;
+        private Store store;
+        private List<Purchase> purchases;
+
+        public ICollection<Purchase> Purchases { get => purchases.AsReadOnly();}
         public DateTime CreationDate { get; set; }
 
         public Bill():base(Guid.NewGuid())
         {
-            Purchases = new List<Purchase>();
+            purchases = new List<Purchase>();
         }
 
         public Bill(
             DateTime date,
             Store store,
-            ICollection<Purchase> purchases
+            List<Purchase> purchases
             ) 
             : base(Guid.NewGuid())
         {
-            Date = date;
-            Store = store;
-            Purchases = purchases;
+            this.date = date;
+            this.store = store;
+            this.purchases = purchases;
             CreationDate = DateTime.UtcNow;
         }
 
@@ -39,15 +41,15 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             )
             : base(Guid.NewGuid())
         {
-            Date = date;
-            Store = store;
-            Purchases = new List<Purchase>();
+            this.date = date;
+            this.store = store;
+            purchases = new List<Purchase>();
             CreationDate = DateTime.UtcNow;
         }
 
         public float GetSum()
         {
-            return Purchases.Sum(p => p.Cost);
+            return purchases.Sum(p => p.Cost);
         }
 
         public void AddPurchaseBasedOnExistingProduct(Product product,float amount, float price)
@@ -57,7 +59,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             if(product.Price.Value != cost)
                 product = product.Update("", null, new Price(price / amount) ,null);
 
-            Purchases.Add(new Purchase(product, Date, amount, price));
+            purchases.Add(new Purchase(product, this.date, amount, price));
         }
 
         public void AddPurchaseBasedOnNewProduct(
@@ -67,7 +69,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             float amount,
             float price)
         {
-            Purchases.Add(
+            purchases.Add(
                 new Purchase(
                     new Product(
                         name,
@@ -75,7 +77,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
                         new Price(price/amount),
                         category
                         ),
-                    Date,
+                    this.date,
                     amount,
                     price
                     )
