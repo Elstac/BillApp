@@ -99,9 +99,9 @@ namespace BillAppDDD.Modules.Bills.Tests
                 new DateTime(),
                 "sss",
                 new PurchaseInputDto[] {
-                    new PurchaseInputDto{Product = new ProductDto{Id = "", Barcode="AXD"}},
-                    new PurchaseInputDto{Product = new ProductDto{Id = "", Barcode="33"}},
-                    new PurchaseInputDto{Product = new ProductDto{Id = null, Barcode="null"}}
+                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Parse(""), Barcode="AXD"}},
+                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Parse(""), Barcode="33"}},
+                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Parse(null), Barcode="null"}}
                 }
                 );
 
@@ -138,7 +138,7 @@ namespace BillAppDDD.Modules.Bills.Tests
                 "sss",
                 new PurchaseInputDto[] {
                     new PurchaseInputDto{Product = new ProductDto{},Amount = 10, Price = 15},
-                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id.ToString() }, Amount = 5, Price = 4}
+                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id }, Amount = 5, Price = 4}
                 }
                 );
 
@@ -175,7 +175,7 @@ namespace BillAppDDD.Modules.Bills.Tests
                 "sss",
                 new PurchaseInputDto[] {
                     new PurchaseInputDto{Product = new ProductDto{}},
-                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id.ToString() }}
+                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id}}
                 }
                 );
 
@@ -235,7 +235,7 @@ namespace BillAppDDD.Modules.Bills.Tests
                 new DateTime(),
                 "sss",
                 new PurchaseInputDto[] {
-                    new PurchaseInputDto{Product = new ProductDto{Id = "", Barcode="AXD"},Price=10,Amount=2},
+                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Parse(""), Barcode="AXD"},Price=10,Amount=2},
                 }
                 );
 
@@ -272,9 +272,9 @@ namespace BillAppDDD.Modules.Bills.Tests
                 "sss",
                 new PurchaseInputDto[] {
                     new PurchaseInputDto{Product = new ProductDto{
-                        Id = "",
+                        Id = Guid.Parse(""),
                         Barcode ="AXD",
-                        CategoryId =expectedCategory.Id.ToString()
+                        CategoryId =expectedCategory.Id
                     }
                     },
                 }
