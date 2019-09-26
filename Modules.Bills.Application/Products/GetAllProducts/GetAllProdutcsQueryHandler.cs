@@ -2,13 +2,14 @@
 using BillAppDDD.Modules.Bills.Application.Products.Dto;
 using Dapper;
 using MediatR;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace BillAppDDD.Modules.Bills.Application.Products.GetAllProducts
 {
-    class GetAllProdutcsQueryHandler : IRequestHandler<GetAllProducts, ProductDto[]>
+    class GetAllProdutcsQueryHandler : IRequestHandler<GetAllProducts, List<ProductDto>>
     {
         private IDbConnectionFactory dbConnectionFactory;
 
@@ -17,14 +18,14 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetAllProducts
             this.dbConnectionFactory = dbConnectionFactory;
         }
 
-        public async Task<ProductDto[]> Handle(GetAllProducts request, CancellationToken cancellationToken)
+        public async Task<List<ProductDto>> Handle(GetAllProducts request, CancellationToken cancellationToken)
         {
             var connection = dbConnectionFactory.GetDbConnection();
 
             const string sql = "SELECT P.Id, P.Name, P.Barcode_Value, P.Price_Value, P.CategoryId " +
                                 "FROM Products P";
 
-            var productsCollection = connection.Query<ProductDto>(sql).ToArray();
+            var productsCollection = connection.Query<ProductDto>(sql).ToList();
 
             return productsCollection;
         }
