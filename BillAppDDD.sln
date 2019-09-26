@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.BuildingBlocks.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.Modules.Bills.Tests", "BillAppDDD.Modules.Bills.Tests\BillAppDDD.Modules.Bills.Tests.csproj", "{EDE79F23-10E7-4819-8EB2-E242F86A9859}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.BuildingBlocks.Infrastructure", "BillAppDDD.BuildingBlocks.Infrastructure\BillAppDDD.BuildingBlocks.Infrastructure.csproj", "{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{EDE79F23-10E7-4819-8EB2-E242F86A9859}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDE79F23-10E7-4819-8EB2-E242F86A9859}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDE79F23-10E7-4819-8EB2-E242F86A9859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{353B2D41-8F01-423A-A3D3-2C2D361D2C1A} = {3E863A30-75BE-48EB-9DF3-273035A2535E}
 		{CABDC8D2-B6E9-4678-BDC2-63ECB8BBA232} = {5BED1665-6246-4904-93E8-5864E8EBA509}
 		{EDE79F23-10E7-4819-8EB2-E242F86A9859} = {EE5C3CE9-4534-40DE-B4B8-7597C2D20223}
+		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94} = {5BED1665-6246-4904-93E8-5864E8EBA509}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C5013448-05B9-4D2E-86DB-61331260F9BC}
