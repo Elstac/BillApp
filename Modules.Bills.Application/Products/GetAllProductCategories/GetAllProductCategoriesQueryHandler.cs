@@ -1,7 +1,6 @@
-﻿using AutoMapper;
+﻿using BillAppDDD.BuildingBlocks.Infrastructure;
 using BillAppDDD.Modules.Bills.Application.Products.Dto;
-using BillAppDDD.Modules.Bills.Domain.Products;
-using BillAppDDD.Modules.Bills.Infrastructure;
+using Dapper;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +11,23 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetAllProductCategories
 {
     class GetAllProductCategoriesQueryHandler : IRequestHandler<GetAllProductCategories, IEnumerable<ProductCategoryDto>>
     {
-        private IExtendedRepository<ProductCategory> categoryRepository;
-        private IMapper mapper;
+        private IDbConnectionFactory dbConnectionFactory;
 
-        public GetAllProductCategoriesQueryHandler(IExtendedRepository<ProductCategory> categoryRepository, IMapper mapper)
+        public GetAllProductCategoriesQueryHandler(IDbConnectionFactory dbConnectionFactory)
         {
-            this.categoryRepository = categoryRepository;
-            this.mapper = mapper;
+            this.dbConnectionFactory = dbConnectionFactory;
         }
 
         public async Task<IEnumerable<ProductCategoryDto>> Handle(GetAllProductCategories request, CancellationToken cancellationToken)
         {
-            var categoriesCollection = categoryRepository
-                .Queryable()
-                .ToList();
+            var connection = dbConnectionFactory.GetDbConnection();
 
-            return mapper.Map<ProductCategoryDto[]>(categoriesCollection);
+            const string sql = "SELECT C.Id, C.Name " +
+                                "FROM ProductCategories C";
+
+            var CategoriesCollection = connection.Query<ProductCategoryDto>(sql).ToList();
+
+            return CategoriesCollection;
         }
     }
 }
