@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using BillAppDDD.BuildingBlocks.Infrastructure;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,11 @@ namespace BillAppDDD.Modules.Bills.Application.Configuration
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
+
+            builder.RegisterType<DbConnectionFactory>()
+                .As<IDbConnectionFactory>()
+                .WithParameter("connectionString", connectionString)
+                .InstancePerLifetimeScope();
 
             builder.Register(
                 c =>
