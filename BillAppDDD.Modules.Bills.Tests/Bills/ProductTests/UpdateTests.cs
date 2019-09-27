@@ -26,9 +26,9 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
 
             //Act
             var newProduct = product.Update(null, null, null, null);
-
+            
             //Assert
-            Assert.Equal(product, newProduct.LastVersion);
+            Assert.True(newProduct.IsLastVersion(product));
         }
 
         [Fact]
