@@ -138,7 +138,7 @@ namespace BillAppDDD.Modules.Bills.Tests
                 Guid.NewGuid(),
                 new PurchaseInputDto[] {
                     new PurchaseInputDto{Product = new ProductDto{},Amount = 10, Price = 15},
-                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id }, Amount = 5, Price = 4}
+                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id.Value }, Amount = 5, Price = 4}
                 }
                 );
 
@@ -175,7 +175,7 @@ namespace BillAppDDD.Modules.Bills.Tests
                 Guid.NewGuid(),
                 new PurchaseInputDto[] {
                     new PurchaseInputDto{Product = new ProductDto{}},
-                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id}}
+                    new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id.Value}}
                 }
                 );
 

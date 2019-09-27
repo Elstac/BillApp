@@ -45,7 +45,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var x = productRepository
                 .Queryable()
-                .Where(p=>productsIds.Contains(p.Id))
+                .Where(p=>productsIds.Contains(p.Id.Value))
                 .ToList();
 
             var existingProducts = request.Purchases
@@ -53,7 +53,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 .Select(
                     p=> new
                         {
-                            Product = x.FirstOrDefault(pr => pr.Id == p.Product.Id),
+                            Product = x.FirstOrDefault(pr => pr.Id == new ProductId(p.Product.Id)),
                             p.Amount,
                             p.Price
                         }
