@@ -187,39 +187,7 @@ namespace BillAppDDD.Modules.Bills.Tests
             Assert.Equal(2, createdBill.Purchases.Where(p => p.Date == billDate).ToList().Count);
         }
 
-        [Fact]
-        public async void Add_store_from_repo_to_bill()
-        {
-            ////Arrange
-            //var billInterceptor = new RepositoryInterceptor<Bill>();
-
-            //var expectedStore = new Store();
-            //var stores = new List<Store>
-            //{
-            //    expectedStore,
-            //    new Store()
-            //};
-
-            //var handler = new HandlerBuilder()
-            //    .WithBillInterceptor(billInterceptor)
-            //    .WithCustomStoreRepo(stores)
-            //    .Build();
-
-            //var command = new AddBill(
-            //    new DateTime(),
-            //    expectedStore.Id.ToString(),
-            //    new PurchaseInputDto[] {
-            //        new PurchaseInputDto{Product = new ProductDto{}}
-            //    }
-            //    );
-
-            ////Act
-            //await handler.Handle(command, CancellationToken.None);
-            //var createdBill = billInterceptor.InterceptedEntity;
-
-            ////Assert
-            //Assert.Equal(expectedStore, createdBill.Store);
-        }
+        
 
         [Fact]
         public async void Newly_created_product_contains_price_equal_to_cost_divided_by_amount()
