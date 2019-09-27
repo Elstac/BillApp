@@ -1,4 +1,5 @@
-﻿using BillAppDDD.Modules.Bills.Domain.Products;
+﻿using BillAppDDD.Modules.Bills.Domain.Bills;
+using BillAppDDD.Modules.Bills.Domain.Products;
 using Xunit;
 
 namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
@@ -26,9 +27,9 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
 
             //Act
             var newProduct = product.Update(null, null, null, null);
-
+            
             //Assert
-            Assert.Equal(product, newProduct.LastVersion);
+            Assert.True(newProduct.IsLastVersion(product));
         }
 
         [Fact]

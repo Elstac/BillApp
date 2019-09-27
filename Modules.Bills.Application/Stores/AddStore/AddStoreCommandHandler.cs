@@ -18,9 +18,7 @@ namespace BillAppDDD.Modules.Bills.Application.Stores.AddStore
 
         public async Task<Unit> Handle(AddStore request, CancellationToken cancellationToken)
         {
-            var store = new Store();
-
-            store.Name = request.Name;
+            var store = new Store(request.Name,request.ImagePath);
 
             storeRepository.Insert(store);
 

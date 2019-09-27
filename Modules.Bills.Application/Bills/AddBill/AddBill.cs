@@ -8,7 +8,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
     {
         public AddBill(
             DateTime date,
-            string storeId,
+            Guid storeId,
             PurchaseInputDto[] purchases
             )
         {
@@ -18,7 +18,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
         }
 
         public DateTime Date { get; set; }
-        public string StoreId { get; set; }
+        public Guid StoreId { get; set; }
         public PurchaseInputDto[] Purchases { get; set; }
     }
 }

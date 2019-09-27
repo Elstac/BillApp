@@ -1,9 +1,9 @@
-﻿using AutoMapper;
+﻿using BillAppDDD.BuildingBlocks.Infrastructure;
+using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Application.Stores.Dto;
-using BillAppDDD.Modules.Bills.Domain.Stores;
-using BillAppDDD.Modules.Bills.Infrastructure;
+using Dapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,23 +13,43 @@ namespace BillAppDDD.Modules.Bills.Application.Stores.GetAllStores
 {
     class GetAllStoresQueryHandler : IRequestHandler<GetAllStores, List<StoreDetailsDto>>
     {
-        private IExtendedRepository<Store> storeRepository;
-        private IMapper mapper;
+        private IDbConnectionFactory dbConnectionFactory;
 
-        public GetAllStoresQueryHandler(IExtendedRepository<Store> storeRepository, IMapper mapper)
+        public GetAllStoresQueryHandler(IDbConnectionFactory dbConnectionFactory)
         {
-            this.storeRepository = storeRepository;
-            this.mapper = mapper;
+            this.dbConnectionFactory = dbConnectionFactory;
         }
 
         public async Task<List<StoreDetailsDto>> Handle(GetAllStores request, CancellationToken cancellationToken)
         {
-            var storeCollection = storeRepository
-                .Queryable()
-                .Include(s=>s.Bills)
+            var connection = dbConnectionFactory.GetDbConnection();
+
+            const string sql = "SELECT S.Id, S.Name, B.Id, B.Date " +
+                               "FROM Stores S LEFT JOIN " +
+                               "Bills B ON B.StoreId = S.Id";
+
+            var storeDictionary = new Dictionary<Guid, StoreDetailsDto>();
+
+            var storeCollection = connection.Query<StoreDetailsDto, BillDto, StoreDetailsDto>(
+                sql,
+                (store, bill) =>
+                {
+                    StoreDetailsDto storeEntry;
+
+                    if (!storeDictionary.TryGetValue(store.Id, out storeEntry))
+                    {
+                        storeEntry = store;
+                        storeEntry.Bills = new List<BillDto>();
+                        storeDictionary.Add(storeEntry.Id, storeEntry);
+                    }
+
+                    storeEntry.Bills.Add(bill);
+                    return storeEntry;
+                })
+                .Distinct()
                 .ToList();
 
-            return mapper.Map<List<StoreDetailsDto>>(storeCollection);
+            return storeCollection;
         }
     }
 }

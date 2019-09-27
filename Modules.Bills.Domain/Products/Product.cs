@@ -1,11 +1,12 @@
 ﻿using BillAppDDD.BuildingBlocks.Domain;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BillAppDDD.Modules.Bills.Domain.Products
 {
     public class Product : Entity, IAggregateRoot
     {
-        public Product() : base(Guid.NewGuid())
+        private Product() : base(Guid.NewGuid())
         {
 
         }
@@ -20,16 +21,17 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
             Name = name;
             Barcode = barcode;
             Price = price;
-            Category = category;
-            LastVersion = null;
+            this.category = category;
+            lastVersion = null;
             LatestVersion = true;
         }
+
+        private Product lastVersion;
+        private ProductCategory category;
 
         public string Name { get; private set; }
         public ProductBarcode Barcode { get; private set; }
         public Price Price { get; private set; }
-        public ProductCategory Category { get; private set; }
-        public Product LastVersion { get; private set; }
         public bool LatestVersion { get; private set; }
 
         public Product Update(
@@ -56,12 +58,15 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
                 );
 
             LatestVersion = false;
-            newProduct.LastVersion = this;
+            newProduct.lastVersion = this;
             newProduct.LatestVersion = true;
 
             return newProduct;
         }
 
-
+        public bool IsLastVersion(Product product)
+        {
+            return lastVersion == product;
+        }
     }
 }

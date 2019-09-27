@@ -1,9 +1,7 @@
-﻿using AutoMapper;
+﻿using BillAppDDD.BuildingBlocks.Infrastructure;
 using BillAppDDD.Modules.Bills.Application.Products.Dto;
-using BillAppDDD.Modules.Bills.Domain.Products;
-using BillAppDDD.Modules.Bills.Infrastructure;
+using Dapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,25 +10,24 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetProductDetails
 {
     class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetails, ProductDto>
     {
-        private IExtendedRepository<Product> productRepo;
-        private IMapper mapper;
+        private IDbConnectionFactory dbConnectionFactory;
 
-        public GetProductDetailsQueryHandler(IExtendedRepository<Product> productRepo, IMapper mapper)
+        public GetProductDetailsQueryHandler(IDbConnectionFactory dbConnectionFactory)
         {
-            this.productRepo = productRepo;
-            this.mapper = mapper;
+            this.dbConnectionFactory = dbConnectionFactory;
         }
 
         public async Task<ProductDto> Handle(GetProductDetails request, CancellationToken cancellationToken)
         {
-            var product = productRepo
-                .Queryable()
-                .Include(p=>p.Barcode)
-                .Include(p=>p.Price)
-                .Include(p=>p.Category)
-                .FirstOrDefault(p => p.Id == request.ProductId);
+            var connection = dbConnectionFactory.GetDbConnection();
 
-            return mapper.Map<ProductDto>(product);
+            const string sql = "SELECT P.Id, P.Name, P.Barcode_Value AS Barcode, P.Price_Value AS Price, P.CategoryId " +
+                                "FROM Products P "+
+                                "WHERE P.Id = @ProductId ";
+
+            var product = connection.Query<ProductDto>(sql,new {request.ProductId }).FirstOrDefault();
+
+            return product;
         }
     }
 }

@@ -6,17 +6,27 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
 {
     public class ProductCategory: Entity, IAggregateRoot
     {
-        public ProductCategory() : base(Guid.NewGuid())
+        private ProductCategory() : base(Guid.NewGuid())
         {
         }
 
         public ProductCategory(string name) : base(Guid.NewGuid())
         {
             Name = name;
+            subcategories = new List<ProductCategory>();
+            products = new List<Product>();
         }
 
-        public string Name { get; set; }
-        public ICollection<ProductCategory> Subcategories { get; set; }
-        public ICollection<Product> Products { get; set; }
+        private string Name;
+        private List<ProductCategory> subcategories;
+        private List<Product> products;
+
+        public IReadOnlyCollection<Product> Products { get => products.AsReadOnly(); }
+        public IReadOnlyCollection<ProductCategory> Subcategories { get => subcategories.AsReadOnly();}
+
+        public void AddProduct(Product product)
+        {
+            products.Add(product);
+        }
     }
 }

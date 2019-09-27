@@ -4,9 +4,7 @@ using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Domain.Stores;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,7 +37,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var store = storeRepository
                 .Queryable()
-                .FirstOrDefault(s => s.Id == Guid.Parse(request.StoreId));
+                .FirstOrDefault(s => s.Id == request.StoreId);
 
             var bill = new Bill(request.Date, store);
 
@@ -47,15 +45,15 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var x = productRepository
                 .Queryable()
-                .Where(p=>productsIds.Contains(p.Id.ToString()))
+                .Where(p=>productsIds.Contains(p.Id))
                 .ToList();
 
             var existingProducts = request.Purchases
-                .Where(p => !string.IsNullOrEmpty(p.Product.Id))
+                .Where(p => !string.IsNullOrEmpty(p.Product.Id.ToString()))
                 .Select(
                     p=> new
                         {
-                            Product = x.FirstOrDefault(pr => pr.Id.ToString() == p.Product.Id),
+                            Product = x.FirstOrDefault(pr => pr.Id == p.Product.Id),
                             p.Amount,
                             p.Price
                         }
@@ -68,12 +66,12 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
             var categories = categoryRepository.Queryable().ToList();
 
             var newProducts = request.Purchases
-                .Where(p => string.IsNullOrEmpty(p.Product.Id))
+                .Where(p => string.IsNullOrEmpty(p.Product.Id.ToString()))
                 .Select(
                 p => new
                 {
                     p.Product,
-                    Category = categories.FirstOrDefault(c => c.Id.ToString() == p.Product.CategoryId),
+                    Category = categories.FirstOrDefault(c => c.Id == p.Product.CategoryId),
                     p.Amount,
                     p.Price
                 })

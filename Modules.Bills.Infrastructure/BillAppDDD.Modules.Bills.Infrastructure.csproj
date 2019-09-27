@@ -5,6 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190926103739_test.cs" />
+    <Compile Remove="Migrations\20190926103739_test.Designer.cs" />
+    <Compile Remove="Migrations\20190926163006_test.cs" />
+    <Compile Remove="Migrations\20190926163006_test.Designer.cs" />
+    <Compile Remove="Migrations\20190926163710_test.cs" />
+    <Compile Remove="Migrations\20190926163710_test.Designer.cs" />
+    <Compile Remove="Migrations\20190927070127_test.cs" />
+    <Compile Remove="Migrations\20190927070127_test.Designer.cs" />
+    <Compile Remove="Migrations\20190927070348_test.cs" />
+    <Compile Remove="Migrations\20190927070348_test.Designer.cs" />
+    <Compile Remove="Migrations\20190927071527_test.cs" />
+    <Compile Remove="Migrations\20190927071527_test.Designer.cs" />
+    <Compile Remove="Migrations\20190927072238_test.cs" />
+    <Compile Remove="Migrations\20190927072238_test.Designer.cs" />
+    <Compile Remove="Migrations\20190927072943_test.cs" />
+    <Compile Remove="Migrations\20190927072943_test.Designer.cs" />
+    <Compile Remove="Migrations\20190927073042_test.cs" />
+    <Compile Remove="Migrations\20190927073042_test.Designer.cs" />
+    <Compile Remove="Migrations\20190927073437_test.cs" />
+    <Compile Remove="Migrations\20190927073437_test.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />

@@ -24,7 +24,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
 
         public ProductBuilder WithBarcode(string value)
         {
-            barcode.Value = value;
+            barcode = new ProductBarcode(value);
 
             return this;
         }

@@ -7,12 +7,20 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.4" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="URF.Core.All" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BillAppDDD.BuildingBlocks.Infrastructure\BillAppDDD.BuildingBlocks.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules.Bills.Infrastructure\BillAppDDD.Modules.Bills.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

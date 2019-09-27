@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using BillAppDDD.BuildingBlocks.Infrastructure;
 using BillAppDDD.Modules.Bills.Application.Bills.Dto;
+using BillAppDDD.Modules.Bills.Application.Stores.Dto;
 using BillAppDDD.Modules.Bills.Domain.Bills;
 using BillAppDDD.Modules.Bills.Infrastructure;
+using Dapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -13,24 +16,33 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.GetAllBills
 {
     internal class GetAllBillsQueryHandler : IRequestHandler<GetAllBills, List<BillDto>>
     {
-        private IExtendedRepository<Bill> repository;
+        private IDbConnectionFactory dbConnectionFactory;
         private IMapper mapper;
 
-        public GetAllBillsQueryHandler(IExtendedRepository<Bill> repository, IMapper mapper)
+        public GetAllBillsQueryHandler(IDbConnectionFactory dbConnectionFactory, IMapper mapper)
         {
-            this.repository = repository;
+            this.dbConnectionFactory = dbConnectionFactory;
             this.mapper = mapper;
         }
 
         public async Task<List<BillDto>> Handle(GetAllBills request, CancellationToken cancellationToken)
         {
-            var billsCollection = repository
-                .Queryable()
-                .Include(b=>b.Store)
-                .Include(b=>b.Purchases)
+            var connection = dbConnectionFactory.GetDbConnection();
+
+            const string sql = "SELECT B.Id, B.Date, S.Id, S.Name " +
+                               "FROM Bills B LEFT JOIN " +
+                               "Stores S ON B.StoreId = S.Id";
+
+            var bills = connection.Query<BillDto, StoreDto, BillDto>(
+                sql,
+                (bill, store) =>
+                {
+                    bill.Store = store;
+                    return bill;
+                })
                 .ToList();
 
-            return mapper.Map<List<BillDto>>(billsCollection);
+            return bills;
         }
     }
 }
