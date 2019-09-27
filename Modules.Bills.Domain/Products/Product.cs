@@ -1,12 +1,11 @@
 ﻿using BillAppDDD.BuildingBlocks.Domain;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BillAppDDD.Modules.Bills.Domain.Products
 {
-    public class Product : Entity, IAggregateRoot
+    public class Product :  IAggregateRoot
     {
-        private Product() : base(Guid.NewGuid())
+        private Product()
         {
 
         }
@@ -15,9 +14,9 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
             ProductBarcode barcode,
             Price price, 
             ProductCategory category
-            ) 
-            : base(Guid.NewGuid())
+            )
         {
+            Id = new ProductId(new Guid());
             Name = name;
             Barcode = barcode;
             Price = price;
@@ -29,6 +28,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
         private Product lastVersion;
         private ProductCategory category;
 
+        public ProductId Id { get;}
         public string Name { get; private set; }
         public ProductBarcode Barcode { get; private set; }
         public Price Price { get; private set; }

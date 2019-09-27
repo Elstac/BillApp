@@ -10,6 +10,6 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
             this.value = value;
         }
 
-        public float Value { get => (float)Math.Round(value, 2); set => this.value = value; }
+        public float Value { get => (float)Math.Round(value, 2);}
     }
 }

@@ -28,13 +28,13 @@ namespace BillAppDDD.Modules.Bills.Application.Products.AddProductToCategory
 
         public async Task<Unit> Handle(AddProductToCategory request, CancellationToken cancellationToken)
         {
-            var product = productRepository.Queryable().FirstOrDefault(p => p.Id == request.ProductId);
+            var product = productRepository.Queryable().FirstOrDefault(p => p.Id == new ProductId(request.ProductId));
 
             var category = categoryRepository
                 .Queryable()
                 .Include(c => c.Products)
                 .Include(c => c.Subcategories)
-                .FirstOrDefault(c => c.Id == request.CategoryId);
+                .FirstOrDefault(c => c.Id.Value == request.CategoryId);
 
             category.AddProduct(product);
 

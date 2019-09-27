@@ -37,7 +37,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var store = storeRepository
                 .Queryable()
-                .FirstOrDefault(s => s.Id == request.StoreId);
+                .FirstOrDefault(s => s.Id == new StoreId( request.StoreId));
 
             var bill = new Bill(request.Date, store);
 
@@ -45,7 +45,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var x = productRepository
                 .Queryable()
-                .Where(p=>productsIds.Contains(p.Id))
+                .Where(p=>productsIds.Contains(p.Id.Value))
                 .ToList();
 
             var existingProducts = request.Purchases
@@ -53,7 +53,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 .Select(
                     p=> new
                         {
-                            Product = x.FirstOrDefault(pr => pr.Id == p.Product.Id),
+                            Product = x.FirstOrDefault(pr => pr.Id == new ProductId(p.Product.Id)),
                             p.Amount,
                             p.Price
                         }
@@ -71,7 +71,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 p => new
                 {
                     p.Product,
-                    Category = categories.FirstOrDefault(c => c.Id == p.Product.CategoryId),
+                    Category = categories.FirstOrDefault(c => c.Id.Value == p.Product.CategoryId),
                     p.Amount,
                     p.Price
                 })

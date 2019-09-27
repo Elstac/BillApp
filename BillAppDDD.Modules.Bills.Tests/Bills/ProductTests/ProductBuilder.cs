@@ -30,7 +30,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
         }
         public ProductBuilder WithPrice(float value)
         {
-            price.Value = value;
+            price = new Price(value);
 
             return this;
         }
