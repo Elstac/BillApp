@@ -22,7 +22,7 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetAllProducts
         {
             var connection = dbConnectionFactory.GetDbConnection();
 
-            const string sql = "SELECT P.Id, P.Name, P.Barcode_Value, P.Price_Value, P.CategoryId " +
+            const string sql = "SELECT P.Id, P.Name, P.Barcode_Value AS Barcode, P.Price_Value AS Price, P.CategoryId " +
                                 "FROM Products P "+
                                 "WHERE P.LatestVersion = 1";
 
