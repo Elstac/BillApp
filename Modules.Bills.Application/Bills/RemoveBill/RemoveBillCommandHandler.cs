@@ -22,7 +22,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.RemoveBill
 
         public async Task<Unit> Handle(RemoveBill request, CancellationToken cancellationToken)
         {
-            var bill = billRepo.Queryable().FirstOrDefault(b => b.Id == request.BillId);
+            var bill = billRepo.Queryable().FirstOrDefault(b => b.Id == new BillId( request.BillId ));
 
             billRepo.Delete(bill);
 

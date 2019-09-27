@@ -8,27 +8,28 @@ using BillAppDDD.Shared.Contracts;
 
 namespace BillAppDDD.Modules.Bills.Domain.Bills
 {
-    public class Bill : Entity, IAggregateRoot, ICreationDate
+    public class Bill : IAggregateRoot, ICreationDate
     {
         private DateTime date;
         private Store store;
         private List<Purchase> purchases;
 
+        public BillId Id { get; private set; }
         public ICollection<Purchase> Purchases { get => purchases.AsReadOnly();}
         public DateTime CreationDate { get; set; }
 
-        public Bill():base(Guid.NewGuid())
+        private Bill()
         {
-            purchases = new List<Purchase>();
+
         }
 
         public Bill(
             DateTime date,
             Store store,
             List<Purchase> purchases
-            ) 
-            : base(Guid.NewGuid())
+            )
         {
+            Id = new BillId(new Guid());
             this.date = date;
             this.store = store;
             this.purchases = purchases;
@@ -39,8 +40,8 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             DateTime date,
             Store store
             )
-            : base(Guid.NewGuid())
         {
+            Id = new BillId(new Guid());
             this.date = date;
             this.store = store;
             purchases = new List<Purchase>();
