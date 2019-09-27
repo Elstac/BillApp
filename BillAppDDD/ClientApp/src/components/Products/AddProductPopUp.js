@@ -26,6 +26,10 @@ export class AddProductPopUp extends Component {
     }
 
     handleConfirm() {
+        if (this.state.toAdd == null || this.state.price < 0 || this.state.amount<=0) {
+            return;
+        }
+
         this.props.handleConfirm(
             {
                 ...this.state.toAdd,
