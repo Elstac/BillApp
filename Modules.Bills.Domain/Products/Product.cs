@@ -1,5 +1,6 @@
 ﻿using BillAppDDD.BuildingBlocks.Domain;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BillAppDDD.Modules.Bills.Domain.Products
 {
@@ -20,17 +21,17 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
             Name = name;
             Barcode = barcode;
             Price = price;
-            Category = category;
+            this.category = category;
             lastVersion = null;
             LatestVersion = true;
         }
 
         private Product lastVersion;
+        private ProductCategory category;
 
         public string Name { get; private set; }
         public ProductBarcode Barcode { get; private set; }
         public Price Price { get; private set; }
-        public ProductCategory Category { get; private set; }
         public bool LatestVersion { get; private set; }
 
         public Product Update(

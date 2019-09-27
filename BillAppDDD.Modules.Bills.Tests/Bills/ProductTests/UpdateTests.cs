@@ -1,4 +1,5 @@
-﻿using BillAppDDD.Modules.Bills.Domain.Products;
+﻿using BillAppDDD.Modules.Bills.Domain.Bills;
+using BillAppDDD.Modules.Bills.Domain.Products;
 using Xunit;
 
 namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests

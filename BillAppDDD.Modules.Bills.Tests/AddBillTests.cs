@@ -248,46 +248,5 @@ namespace BillAppDDD.Modules.Bills.Tests
             Assert.Equal(1, createdBill.Purchases.Count);
             Assert.NotNull(createdBill.Purchases.FirstOrDefault(p => p.Product.Price.Value == 5));
         }
-
-        [Fact]
-        public async void Newly_created_product_contains_category_if_given()
-        {
-            //Arrange
-            var expectedCategory = new ProductCategory("expected");
-
-            var billInterceptor = new RepositoryInterceptor<Bill>();
-
-            var categories = new List<ProductCategory>()
-            {
-                expectedCategory
-            };
-
-            var handler = new HandlerBuilder()
-                .WithBillInterceptor(billInterceptor)
-                .WithCustomCategoryRepo(categories)
-                .Build();
-
-            var command = new AddBill(
-                new DateTime(),
-                Guid.Parse("sss"),
-                new PurchaseInputDto[] {
-                    new PurchaseInputDto{Product = new ProductDto{
-                        Id = Guid.Parse(""),
-                        Barcode ="AXD",
-                        CategoryId =expectedCategory.Id
-                    }
-                    },
-                }
-                );
-
-            //Act
-            await handler.Handle(command, CancellationToken.None);
-            var createdBill = billInterceptor.InterceptedEntity;
-
-            //Assert
-            Assert.NotNull(createdBill.Purchases);
-            Assert.Equal(1, createdBill.Purchases.Count);
-            Assert.NotNull(createdBill.Purchases.FirstOrDefault(p => p.Product.Category == expectedCategory));
-        }
     }
 }

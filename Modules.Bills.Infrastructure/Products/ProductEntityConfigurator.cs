@@ -8,11 +8,16 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Products
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasOne(p => p.Category)
-                .WithMany(c => c.Products);
-
             builder.OwnsOne(p => p.Barcode);
             builder.OwnsOne(p => p.Price);
+
+            builder.HasOne<ProductCategory>("category")
+                .WithMany(c => c.Products)
+                .HasForeignKey("CategoryId");
+
+            builder.HasOne<Product>("lastVersion")
+                .WithMany()
+                .HasForeignKey("LastVersionId");
         }
     }
 }

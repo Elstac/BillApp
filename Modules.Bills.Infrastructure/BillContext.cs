@@ -29,6 +29,7 @@ namespace Modules.Bills.Infrastructure
             modelBuilder.ApplyConfiguration(new BillEntityConfigurator());
             modelBuilder.ApplyConfiguration(new PurchaseEntityConfigurator());
             modelBuilder.ApplyConfiguration(new ProductEntityConfigurator());
+            modelBuilder.ApplyConfiguration(new ProductCategoryEntityConfigurator());
             modelBuilder.ApplyConfiguration(new StoreEntityConfigurator());
         }
     }
