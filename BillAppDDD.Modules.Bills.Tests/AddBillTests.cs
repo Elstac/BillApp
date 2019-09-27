@@ -125,7 +125,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var products = new List<Product>
             {
-                new Product()
+                new Product("",ProductBarcode.GetRandomBarcode(),new Price(1),null)
             };
 
             var handler = new HandlerBuilder()
@@ -160,7 +160,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var products = new List<Product>
             {
-                new Product()
+                new Product("",ProductBarcode.GetRandomBarcode(),new Price(1),null)
             };
 
             var billDate = new DateTime(2019, 5, 11);
