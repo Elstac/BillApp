@@ -29,13 +29,9 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.GetAllBills
         {
             var connection = dbConnectionFactory.GetDbConnection();
 
-            const string sql = "SELECT " +
-                               "[B].[Id], " +
-                               "[B].[Date], " +
-                               "[S].[Id], " +
-                               "[S].[Name] " +
-                               "FROM [Bills] [B] INNER JOIN " +
-                               "[Stores] [S] ON [B].[StoreId] = [S].[Id]";
+            const string sql = "SELECT B.Id, B.Date, S.Id, S.Name " +
+                               "FROM Bills B LEFT JOIN " +
+                               "Stores S ON B.StoreId = S.Id";
 
             var bills = connection.Query<BillDto, StoreDto, BillDto>(
                 sql,

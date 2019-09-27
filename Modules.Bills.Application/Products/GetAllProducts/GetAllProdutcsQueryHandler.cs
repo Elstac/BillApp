@@ -23,7 +23,8 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetAllProducts
             var connection = dbConnectionFactory.GetDbConnection();
 
             const string sql = "SELECT P.Id, P.Name, P.Barcode_Value, P.Price_Value, P.CategoryId " +
-                                "FROM Products P";
+                                "FROM Products P "+
+                                "WHERE P.LatestVersion = 1";
 
             var productsCollection = connection.Query<ProductDto>(sql).ToList();
 

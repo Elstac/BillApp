@@ -8,13 +8,30 @@ namespace BillAppDDD.Modules.Bills.Domain.Stores
 {
     public class Store : Entity, IAggregateRoot
     {
-        public Store() : base(Guid.NewGuid())
+        private Store() : base(Guid.NewGuid())
         {
         }
 
-        public string Name { get; set; }
-        public string LogoImagePath { get; set; }
-        public ICollection<Bill> Bills { get; set; }
+        public Store(string name, string logoImagePath) : base(Guid.NewGuid())
+        {
+            this.name = name;
+            this.logoImagePath = logoImagePath;
+            bills = new List<Bill>();
+        }
+
+        public Store(string name, string logoImagePath, List<Bill> bills) : base(Guid.NewGuid())
+        {
+            this.name = name;
+            this.logoImagePath = logoImagePath;
+            this.bills = new List<Bill>();
+        }
+
+        private string name;
+        private string logoImagePath;
+        private List<Bill> bills;
+
+        public string Name { get => name; }
+        public IReadOnlyCollection<Bill> Bills { get => bills.AsReadOnly(); }
 
         public float GetTotalSpendings()
         {

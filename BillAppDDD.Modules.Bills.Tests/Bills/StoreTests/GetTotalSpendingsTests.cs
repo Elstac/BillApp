@@ -29,10 +29,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.StoreTests
                 .Build()
             };
 
-            var store = new Store
-            {
-                Bills = billCollection
-            };
+            var store = new Store("", "", billCollection);
 
             var totalSpendings = store.GetTotalSpendings();
 

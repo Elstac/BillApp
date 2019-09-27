@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BillAppDDD.BuildingBlocks.Infrastructure;
+﻿using BillAppDDD.BuildingBlocks.Infrastructure;
 using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Application.Stores.Dto;
 using Dapper;
@@ -26,8 +25,8 @@ namespace BillAppDDD.Modules.Bills.Application.Stores.GetAllStores
             var connection = dbConnectionFactory.GetDbConnection();
 
             const string sql = "SELECT S.Id, S.Name, B.Id, B.Date " +
-                                "FROM Stores S INNER JOIN " +
-                                "Bills B ON B.StoreId = S.Id ";
+                               "FROM Stores S LEFT JOIN " +
+                               "Bills B ON B.StoreId = S.Id";
 
             var storeDictionary = new Dictionary<Guid, StoreDetailsDto>();
 

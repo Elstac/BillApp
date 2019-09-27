@@ -33,15 +33,15 @@ namespace BillAppDDD.Modules.Bills.Application.Configuration.AutomapperProfiles
             //        )
             //    );
 
-            CreateMap<Store, StoreDto>()
-                .ForMember(
-                s => s.Id,
-                opt => opt.MapFrom(e => e.Id)
-                )
-                .ForMember(
-                s => s.Name,
-                opt => opt.MapFrom(e => e.Name)
-                );
+            //CreateMap<Store, StoreDto>()
+            //    .ForMember(
+            //    s => s.Id,
+            //    opt => opt.MapFrom(e => e.Id)
+            //    )
+            //    .ForMember(
+            //    s => s.Name,
+            //    opt => opt.MapFrom(e => e.Name)
+            //    );
         }
     }
 }

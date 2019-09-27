@@ -10,5 +10,6 @@ namespace BillAppDDD.Modules.Bills.Application.Stores.AddStore
         }
 
         public string Name { get; set; }
+        public string ImagePath { get; set; }
     }
 }
