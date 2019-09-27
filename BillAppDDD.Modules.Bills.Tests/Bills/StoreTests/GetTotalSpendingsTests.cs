@@ -11,6 +11,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.StoreTests
         [Fact]
         public void Return_sum_of_spendings_from_all_bills()
         {
+            //Arrange
             var billCollection = new List<Bill>
             {
                 new BillBuilder().WithPurchases(
@@ -31,8 +32,10 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.StoreTests
 
             var store = new Store("", "", billCollection);
 
+            //Act
             var totalSpendings = store.GetTotalSpendings();
 
+            //Assert
             Assert.Equal(26, totalSpendings);
         }
     }

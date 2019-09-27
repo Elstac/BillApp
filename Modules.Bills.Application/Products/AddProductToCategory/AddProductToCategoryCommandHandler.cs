@@ -36,7 +36,7 @@ namespace BillAppDDD.Modules.Bills.Application.Products.AddProductToCategory
                 .Include(c => c.Subcategories)
                 .FirstOrDefault(c => c.Id == request.CategoryId);
 
-            category.Products.Add(product);
+            category.AddProduct(product);
 
             categoryRepository.Update(category);
 
