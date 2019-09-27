@@ -49,7 +49,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 .ToList();
 
             var existingProducts = request.Purchases
-                .Where(p => !string.IsNullOrEmpty(p.Product.Id.ToString()))
+                .Where(p => p.Product.Id != Guid.Empty)
                 .Select(
                     p=> new
                         {
@@ -66,7 +66,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
             var categories = categoryRepository.Queryable().ToList();
 
             var newProducts = request.Purchases
-                .Where(p => string.IsNullOrEmpty(p.Product.Id.ToString()))
+                .Where(p => p.Product.Id == Guid.Empty)
                 .Select(
                 p => new
                 {

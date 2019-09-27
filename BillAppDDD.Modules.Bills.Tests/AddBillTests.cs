@@ -76,7 +76,7 @@ namespace BillAppDDD.Modules.Bills.Tests
         [Fact]
         public void Throw_if_no_purchases()
         {
-            var command = new AddBill(new DateTime(), Guid.Parse("sss"), new PurchaseInputDto[] { });
+            var command = new AddBill(new DateTime(), Guid.NewGuid(), new PurchaseInputDto[] { });
             var handler = new HandlerBuilder().Build();
 
             Assert.ThrowsAsync<InvalidOperationException>(
@@ -97,11 +97,11 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var command = new AddBill(
                 new DateTime(),
-                Guid.Parse("sss"),
+                Guid.NewGuid(),
                 new PurchaseInputDto[] {
-                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Parse(""), Barcode="AXD"}},
-                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Parse(""), Barcode="33"}},
-                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Parse(null), Barcode="null"}}
+                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Empty, Barcode="AXD"}},
+                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Empty, Barcode="33"}},
+                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Empty, Barcode="null"}}
                 }
                 );
 
@@ -135,7 +135,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var command = new AddBill(
                 new DateTime(),
-                Guid.Parse("sss"),
+                Guid.NewGuid(),
                 new PurchaseInputDto[] {
                     new PurchaseInputDto{Product = new ProductDto{},Amount = 10, Price = 15},
                     new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id }, Amount = 5, Price = 4}
@@ -172,7 +172,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var command = new AddBill(
                 billDate,
-                Guid.Parse("sss"),
+                Guid.NewGuid(),
                 new PurchaseInputDto[] {
                     new PurchaseInputDto{Product = new ProductDto{}},
                     new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id}}
@@ -233,9 +233,9 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var command = new AddBill(
                 new DateTime(),
-                Guid.Parse("sss"),
+                Guid.NewGuid(),
                 new PurchaseInputDto[] {
-                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Parse(""), Barcode="AXD"},Price=10,Amount=2},
+                    new PurchaseInputDto{Product = new ProductDto{Id = Guid.Empty, Barcode="AXD"},Price=10,Amount=2},
                 }
                 );
 
