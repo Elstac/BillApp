@@ -5,6 +5,11 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
 {
     public class ProductBarcode
     {
+        private ProductBarcode()
+        {
+
+        }
+
         private const int maxLength = 10;
         public ProductBarcode(string value)
         {

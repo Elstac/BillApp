@@ -32,7 +32,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Stores
         private string logoImagePath;
         private List<Bill> bills;
 
-        public StoreId Id { get; }
+        public StoreId Id { get; private set; }
         public string Name { get => name; }
         public IReadOnlyCollection<Bill> Bills { get => bills.AsReadOnly(); }
 

@@ -22,10 +22,10 @@ namespace BillAppDDD.Modules.Bills.Application.Products.GetProductDetails
             var connection = dbConnectionFactory.GetDbConnection();
 
             const string sql = "SELECT P.Id, P.Name, P.Barcode_Value AS Barcode, P.Price_Value AS Price, P.CategoryId " +
-                                "FROM Products P "+
-                                "WHERE P.Id = @ProductId ";
+                               "FROM Products P " +
+                               "WHERE P.Id = @ProductId ";
 
-            var product = connection.Query<ProductDto>(sql,new {request.ProductId }).FirstOrDefault();
+            var product = connection.Query<ProductDto>(sql, new { request.ProductId }).FirstOrDefault();
 
             return product;
         }

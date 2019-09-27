@@ -22,7 +22,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
         private List<ProductCategory> subcategories;
         private List<Product> products;
 
-        public ProductCategoryId Id { get; }
+        public ProductCategoryId Id { get; private set; }
         public IReadOnlyCollection<Product> Products { get => products.AsReadOnly(); }
         public IReadOnlyCollection<ProductCategory> Subcategories { get => subcategories.AsReadOnly();}
 

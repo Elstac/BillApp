@@ -11,6 +11,12 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Bills
         {
             builder.HasKey(s => s.Id);
 
+            builder
+                .Property(b => b.Id)
+                .HasConversion(b => b.Value, val => new StoreId(val))
+                .HasColumnName("Id")
+                .IsRequired();
+
             builder.Property<string>("name").HasColumnName("Name");
             builder.Property<string>("logoImagePath").HasColumnName("LogoImagePath");
 
