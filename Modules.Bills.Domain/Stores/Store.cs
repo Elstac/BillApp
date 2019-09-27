@@ -6,21 +6,23 @@ using BillAppDDD.Modules.Bills.Domain.Bills;
 
 namespace BillAppDDD.Modules.Bills.Domain.Stores
 {
-    public class Store : Entity, IAggregateRoot
+    public class Store : IAggregateRoot
     {
-        private Store() : base(Guid.NewGuid())
+        private Store()
         {
         }
 
-        public Store(string name, string logoImagePath) : base(Guid.NewGuid())
+        public Store(string name, string logoImagePath)
         {
+            Id = new StoreId(new Guid());
             this.name = name;
             this.logoImagePath = logoImagePath;
             bills = new List<Bill>();
         }
 
-        public Store(string name, string logoImagePath, List<Bill> bills) : base(Guid.NewGuid())
+        public Store(string name, string logoImagePath, List<Bill> bills)
         {
+            Id = new StoreId(new Guid());
             this.name = name;
             this.logoImagePath = logoImagePath;
             this.bills = bills;
@@ -30,6 +32,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Stores
         private string logoImagePath;
         private List<Bill> bills;
 
+        public StoreId Id { get; }
         public string Name { get => name; }
         public IReadOnlyCollection<Bill> Bills { get => bills.AsReadOnly(); }
 

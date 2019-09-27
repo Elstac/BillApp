@@ -4,14 +4,15 @@ using System.Collections.Generic;
 
 namespace BillAppDDD.Modules.Bills.Domain.Products
 {
-    public class ProductCategory: Entity, IAggregateRoot
+    public class ProductCategory: IAggregateRoot
     {
-        private ProductCategory() : base(Guid.NewGuid())
+        private ProductCategory()
         {
         }
 
-        public ProductCategory(string name) : base(Guid.NewGuid())
+        public ProductCategory(string name)
         {
+            Id = new ProductCategoryId(new Guid());
             Name = name;
             subcategories = new List<ProductCategory>();
             products = new List<Product>();
@@ -21,6 +22,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
         private List<ProductCategory> subcategories;
         private List<Product> products;
 
+        public ProductCategoryId Id { get; }
         public IReadOnlyCollection<Product> Products { get => products.AsReadOnly(); }
         public IReadOnlyCollection<ProductCategory> Subcategories { get => subcategories.AsReadOnly();}
 

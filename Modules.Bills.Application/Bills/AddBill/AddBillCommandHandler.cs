@@ -37,7 +37,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var store = storeRepository
                 .Queryable()
-                .FirstOrDefault(s => s.Id == request.StoreId);
+                .FirstOrDefault(s => s.Id == new StoreId( request.StoreId));
 
             var bill = new Bill(request.Date, store);
 
@@ -71,7 +71,7 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
                 p => new
                 {
                     p.Product,
-                    Category = categories.FirstOrDefault(c => c.Id == p.Product.CategoryId),
+                    Category = categories.FirstOrDefault(c => c.Id.Value == p.Product.CategoryId),
                     p.Amount,
                     p.Price
                 })

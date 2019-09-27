@@ -34,7 +34,7 @@ namespace BillAppDDD.Modules.Bills.Application.Products.AddProductToCategory
                 .Queryable()
                 .Include(c => c.Products)
                 .Include(c => c.Subcategories)
-                .FirstOrDefault(c => c.Id == request.CategoryId);
+                .FirstOrDefault(c => c.Id.Value == request.CategoryId);
 
             category.AddProduct(product);
 
