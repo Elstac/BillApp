@@ -6,7 +6,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
 {
     public class ProductCategory: Entity, IAggregateRoot
     {
-        public ProductCategory() : base(Guid.NewGuid())
+        private ProductCategory() : base(Guid.NewGuid())
         {
         }
 
