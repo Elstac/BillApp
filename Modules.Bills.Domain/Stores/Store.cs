@@ -23,7 +23,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Stores
         {
             this.name = name;
             this.logoImagePath = logoImagePath;
-            this.bills = new List<Bill>();
+            this.bills = bills;
         }
 
         private string name;
@@ -35,7 +35,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Stores
 
         public float GetTotalSpendings()
         {
-            return Bills.Sum(b => b.GetSum());
+            return bills.Sum(b => b.GetSum());
         }
     }
 }
