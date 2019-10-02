@@ -1,10 +1,16 @@
-﻿using System;
+﻿using BillAppDDD.BuildingBlocks.Domain;
+using System;
 using System.Text;
 
 namespace BillAppDDD.Modules.Bills.Domain.Products
 {
-    public class ProductBarcode
+    public class ProductBarcode:ValueObject
     {
+        private ProductBarcode()
+        {
+
+        }
+
         private const int maxLength = 10;
         public ProductBarcode(string value)
         {

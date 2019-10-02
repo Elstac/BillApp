@@ -9,8 +9,14 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Bills
     {
         public void Configure(EntityTypeBuilder<Bill> builder)
         {
-            builder.HasKey(b => b.Id);
+            builder.ToTable("Bills");
 
+            builder
+                .Property(b => b.Id)
+                .HasConversion(b=>b.Value,val => new BillId(val))
+                .HasColumnName("Id")
+                .IsRequired();
+            
             builder.Property<DateTime>("date").HasColumnName("Date");
 
             builder.Metadata.FindNavigation(nameof(Bill.Purchases)).SetPropertyAccessMode(PropertyAccessMode.Field);

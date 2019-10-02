@@ -29,7 +29,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             List<Purchase> purchases
             )
         {
-            Id = new BillId(new Guid());
+            Id = new BillId(Guid.NewGuid());
             this.date = date;
             this.store = store;
             this.purchases = purchases;
@@ -41,7 +41,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             Store store
             )
         {
-            Id = new BillId(new Guid());
+            Id = new BillId(Guid.NewGuid());
             this.date = date;
             this.store = store;
             purchases = new List<Purchase>();

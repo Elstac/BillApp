@@ -27,10 +27,10 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             this.cost = cost;
         }
 
-        public Guid BillId { get; set; }
+        public BillId BillId { get; set; }
         public Bill Bill { get; set; }
 
-        public Guid ProductId { get; set; }
+        public ProductId ProductId { get; set; }
         public Product Product { get; set; }
 
         public DateTime Date { get; set; }

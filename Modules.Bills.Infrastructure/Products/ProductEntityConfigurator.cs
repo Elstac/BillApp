@@ -8,8 +8,24 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Products
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.OwnsOne(p => p.Barcode);
-            builder.OwnsOne(p => p.Price);
+            builder.ToTable("Products");
+
+            builder
+                .Property(p=>p.Id)
+                .HasConversion(b => b.Value, val => new ProductId(val))
+                .HasColumnName("Id")
+                .IsRequired();
+
+            builder
+                .Property(p => p.Barcode)
+                .HasConversion(b => b.Value, val => new ProductBarcode(val))
+                .HasColumnName("Barcode_Value");
+
+            builder
+                .Property(p => p.Price)
+                .HasConversion(b => b.Value, val => new Price(val))
+                .HasColumnName("Price_Value");
+
 
             builder.HasOne<ProductCategory>("category")
                 .WithMany(c => c.Products)

@@ -16,7 +16,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
             ProductCategory category
             )
         {
-            Id = new ProductId(new Guid());
+            Id = new ProductId(Guid.NewGuid());
             Name = name;
             Barcode = barcode;
             Price = price;
@@ -28,7 +28,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
         private Product lastVersion;
         private ProductCategory category;
 
-        public ProductId Id { get;}
+        public ProductId Id { get; private set; }
         public string Name { get; private set; }
         public ProductBarcode Barcode { get; private set; }
         public Price Price { get; private set; }
