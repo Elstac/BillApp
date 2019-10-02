@@ -4,6 +4,7 @@ using BillAppDDD.Modules.Bills.Domain.Products;
 using BillAppDDD.Modules.Bills.Domain.Stores;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading;
@@ -37,15 +38,18 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
 
             var store = storeRepository
                 .Queryable()
-                .FirstOrDefault(s => s.Id == new StoreId( request.StoreId));
+                .FirstOrDefault(s => s.Id.Equals(new StoreId( request.StoreId)));
 
             var bill = new Bill(request.Date, store);
 
-            var productsIds = request.Purchases.Select(pu => pu.Product.Id).ToList();
+            var productsIds = request.Purchases
+                .Where(p => p.Product.Id != Guid.Empty)
+                .Select(pu =>new ProductId( pu.Product.Id ))
+                .ToList();
 
             var x = productRepository
                 .Queryable()
-                .Where(p=>productsIds.Contains(p.Id.Value))
+                .Where(p=>productsIds.Contains(p.Id))
                 .ToList();
 
             var existingProducts = request.Purchases
