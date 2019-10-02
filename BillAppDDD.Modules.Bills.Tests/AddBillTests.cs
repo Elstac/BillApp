@@ -125,7 +125,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var products = new List<Product>
             {
-                new Product("",ProductBarcode.GetRandomBarcode(),new Price(1),null)
+                new Product("",ProductBarcode.GetRandomBarcode(),new MoneyValue(1),null)
             };
 
             var handler = new HandlerBuilder()
@@ -135,7 +135,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var command = new AddBill(
                 new DateTime(),
-                Guid.NewGuid(),
+                Guid.Empty,
                 new PurchaseInputDto[] {
                     new PurchaseInputDto{Product = new ProductDto{},Amount = 10, Price = 15},
                     new PurchaseInputDto{Product = new ProductDto{Id = products[0].Id.Value }, Amount = 5, Price = 4}
@@ -160,7 +160,7 @@ namespace BillAppDDD.Modules.Bills.Tests
 
             var products = new List<Product>
             {
-                new Product("",ProductBarcode.GetRandomBarcode(),new Price(1),null)
+                new Product("",ProductBarcode.GetRandomBarcode(),new MoneyValue(1),null)
             };
 
             var billDate = new DateTime(2019, 5, 11);

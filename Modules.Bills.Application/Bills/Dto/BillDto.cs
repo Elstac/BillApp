@@ -1,7 +1,6 @@
-﻿using BillAppDDD.Modules.Bills.Application.Products.Dto;
-using BillAppDDD.Modules.Bills.Application.Stores.Dto;
+﻿using BillAppDDD.Modules.Bills.Application.Stores.Dto;
+using BillAppDDD.Modules.Bills.Domain.Products;
 using System;
-using System.Collections.Generic;
 
 namespace BillAppDDD.Modules.Bills.Application.Bills.Dto
 {
@@ -10,6 +9,6 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.Dto
         public Guid Id { get; set; }
         public DateTime Date { get; set; }
         public StoreDto Store { get; set; }
-        public float Sum { get; set; }
+        public MoneyValue Sum { get; set; }
     }
 }

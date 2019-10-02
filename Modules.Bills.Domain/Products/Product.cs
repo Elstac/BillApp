@@ -12,7 +12,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
         public Product(
             string name,
             ProductBarcode barcode,
-            Price price, 
+            MoneyValue price, 
             ProductCategory category
             )
         {
@@ -31,13 +31,13 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
         public ProductId Id { get; private set; }
         public string Name { get; private set; }
         public ProductBarcode Barcode { get; private set; }
-        public Price Price { get; private set; }
+        public MoneyValue Price { get; private set; }
         public bool LatestVersion { get; private set; }
 
         public Product Update(
             string name,
             ProductBarcode barcode,
-            Price price,
+            MoneyValue price,
             ProductCategory category
             )
         {
@@ -48,7 +48,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
                 barcode = new ProductBarcode(Barcode.Value);
 
             if (price is null)
-                price = new Price(Price.Value);
+                price = new MoneyValue(Price.Value);
 
             var newProduct = new Product(
                     name,

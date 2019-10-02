@@ -20,7 +20,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             Assert.Empty(bill.Purchases);
 
-            var product = new Product("", new ProductBarcode(""), new Price(0), null);
+            var product = new Product("", new ProductBarcode(""), new MoneyValue(0), null);
 
             //Act
             bill.AddPurchaseBasedOnExistingProduct(product,0,0);
@@ -39,7 +39,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             Assert.Empty(bill.Purchases);
 
-            var product = new Product("", new ProductBarcode(""), new Price(0), null);
+            var product = new Product("", new ProductBarcode(""), new MoneyValue(0), null);
 
             //Act
             bill.AddPurchaseBasedOnExistingProduct(product, 5.0f, 15.0f);
@@ -57,7 +57,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             Assert.Empty(bill.Purchases);
 
-            var product = new Product("", new ProductBarcode(""), new Price(12.5f), null);
+            var product = new Product("", new ProductBarcode(""), new MoneyValue(12.5f), null);
 
             //Act
             bill.AddPurchaseBasedOnExistingProduct(product, 2.0f, 25.0f);
