@@ -14,7 +14,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Stores
 
         public Store(string name, string logoImagePath)
         {
-            Id = new StoreId(new Guid());
+            Id = new StoreId(Guid.NewGuid());
             this.name = name;
             this.logoImagePath = logoImagePath;
             bills = new List<Bill>();
@@ -22,7 +22,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Stores
 
         public Store(string name, string logoImagePath, List<Bill> bills)
         {
-            Id = new StoreId(new Guid());
+            Id = new StoreId(Guid.NewGuid());
             this.name = name;
             this.logoImagePath = logoImagePath;
             this.bills = bills;

@@ -16,7 +16,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
             ProductCategory category
             )
         {
-            Id = new ProductId(new Guid());
+            Id = new ProductId(Guid.NewGuid());
             Name = name;
             Barcode = barcode;
             Price = price;
