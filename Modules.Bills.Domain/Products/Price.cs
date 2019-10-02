@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BillAppDDD.BuildingBlocks.Domain;
+using System;
 
 namespace BillAppDDD.Modules.Bills.Domain.Products
 {
-    public class Price
+    public class Price:ValueObject
     {
-        private float value;
 
         private Price()
         {
@@ -12,9 +12,9 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
 
         public Price(float value)
         {
-            this.value = value;
+            this.Value = value;
         }
 
-        public float Value { get => (float)Math.Round(value, 2); private set=> this.value = value; }
+        public float Value { get; private set; }
     }
 }
