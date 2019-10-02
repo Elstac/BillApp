@@ -9,8 +9,6 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Bills
     {
         public void Configure(EntityTypeBuilder<Store> builder)
         {
-            builder.HasKey(s => s.Id);
-
             builder
                 .Property(b => b.Id)
                 .HasConversion(b => b.Value, val => new StoreId(val))
