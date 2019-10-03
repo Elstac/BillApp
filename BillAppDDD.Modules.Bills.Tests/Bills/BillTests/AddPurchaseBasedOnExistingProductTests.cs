@@ -1,4 +1,5 @@
 ﻿using BillAppDDD.Modules.Bills.Domain.Products;
+using BillAppDDD.Modules.Bills.Tests.Bills.ProductTests;
 using System;
 using System.Linq;
 using Xunit;
@@ -64,6 +65,25 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             //Assert
             Assert.Equal(product, bill.Purchases.FirstOrDefault().Product);
+        }
+
+        [Fact]
+        public void Increase_bill_sum_by_new_purchase_value()
+        {
+            //Arrange
+            var bill = new BillBuilder()
+                .Build();
+
+            Assert.Empty(bill.Purchases);
+
+            var product = new ProductBuilder().Build();
+
+            //Act
+            Assert.Equal(0.0f, bill.GetSum());
+            bill.AddPurchaseBasedOnExistingProduct(product, 1.0f, 25.0f);
+
+            //Assert
+            Assert.Equal(25.0f, bill.GetSum());
         }
     }
 }
