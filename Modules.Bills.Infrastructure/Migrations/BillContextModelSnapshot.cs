@@ -22,13 +22,17 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Migrations
             modelBuilder.Entity("BillAppDDD.Modules.Bills.Domain.Bills.Bill", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasColumnName("Id");
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<DateTime>("Date");
-
                     b.Property<Guid?>("StoreId");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnName("Date");
+
+                    b.Property<float?>("sum")
+                        .HasColumnName("Sum_Value");
 
                     b.HasKey("Id");
 
@@ -63,7 +67,10 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Migrations
             modelBuilder.Entity("BillAppDDD.Modules.Bills.Domain.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Barcode")
+                        .HasColumnName("Barcode_Value");
 
                     b.Property<Guid?>("CategoryId");
 
@@ -72,6 +79,9 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Migrations
                     b.Property<bool>("LatestVersion");
 
                     b.Property<string>("Name");
+
+                    b.Property<float?>("Price")
+                        .HasColumnName("Price_Value");
 
                     b.HasKey("Id");
 
@@ -85,11 +95,12 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Migrations
             modelBuilder.Entity("BillAppDDD.Modules.Bills.Domain.Products.ProductCategory", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
+                        .HasColumnName("Id");
 
                     b.Property<Guid?>("ProductCategoryId");
+
+                    b.Property<string>("name")
+                        .HasColumnName("Name");
 
                     b.HasKey("Id");
 
@@ -101,11 +112,13 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Migrations
             modelBuilder.Entity("BillAppDDD.Modules.Bills.Domain.Stores.Store", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasColumnName("Id");
 
-                    b.Property<string>("LogoImagePath");
+                    b.Property<string>("logoImagePath")
+                        .HasColumnName("LogoImagePath");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("name")
+                        .HasColumnName("Name");
 
                     b.HasKey("Id");
 
@@ -114,7 +127,7 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Migrations
 
             modelBuilder.Entity("BillAppDDD.Modules.Bills.Domain.Bills.Bill", b =>
                 {
-                    b.HasOne("BillAppDDD.Modules.Bills.Domain.Stores.Store", "Store")
+                    b.HasOne("BillAppDDD.Modules.Bills.Domain.Stores.Store")
                         .WithMany("Bills")
                         .HasForeignKey("StoreId");
                 });
@@ -134,45 +147,13 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Migrations
 
             modelBuilder.Entity("BillAppDDD.Modules.Bills.Domain.Products.Product", b =>
                 {
-                    b.HasOne("BillAppDDD.Modules.Bills.Domain.Products.ProductCategory", "Category")
+                    b.HasOne("BillAppDDD.Modules.Bills.Domain.Products.ProductCategory", "category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("BillAppDDD.Modules.Bills.Domain.Products.Product", "LastVersion")
+                    b.HasOne("BillAppDDD.Modules.Bills.Domain.Products.Product", "lastVersion")
                         .WithMany()
                         .HasForeignKey("LastVersionId");
-
-                    b.OwnsOne("BillAppDDD.Modules.Bills.Domain.Products.Price", "Price", b1 =>
-                        {
-                            b1.Property<Guid>("ProductId");
-
-                            b1.Property<float>("Value");
-
-                            b1.HasKey("ProductId");
-
-                            b1.ToTable("Products");
-
-                            b1.HasOne("BillAppDDD.Modules.Bills.Domain.Products.Product")
-                                .WithOne("Price")
-                                .HasForeignKey("BillAppDDD.Modules.Bills.Domain.Products.Price", "ProductId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-
-                    b.OwnsOne("BillAppDDD.Modules.Bills.Domain.Products.ProductBarcode", "Barcode", b1 =>
-                        {
-                            b1.Property<Guid>("ProductId");
-
-                            b1.Property<string>("Value");
-
-                            b1.HasKey("ProductId");
-
-                            b1.ToTable("Products");
-
-                            b1.HasOne("BillAppDDD.Modules.Bills.Domain.Products.Product")
-                                .WithOne("Barcode")
-                                .HasForeignKey("BillAppDDD.Modules.Bills.Domain.Products.ProductBarcode", "ProductId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
                 });
 
             modelBuilder.Entity("BillAppDDD.Modules.Bills.Domain.Products.ProductCategory", b =>
