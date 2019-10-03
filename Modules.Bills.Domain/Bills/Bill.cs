@@ -35,6 +35,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             this.store = store;
             this.purchases = purchases;
             CreationDate = DateTime.UtcNow;
+            sum = new MoneyValue(0);
         }
 
         public Bill(
@@ -62,6 +63,8 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
                 product = product.Update("", null, new MoneyValue(price / amount) ,null);
 
             purchases.Add(new Purchase(product, this.date, amount, price));
+
+            sum = new MoneyValue(sum.Value + cost);
         }
 
         public void AddPurchaseBasedOnNewProduct(
