@@ -6,13 +6,13 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
     {
         private string name;
         private ProductBarcode barcode;
-        private Price price;
+        private MoneyValue price;
 
         public ProductBuilder()
         {
             name = "";
             barcode = new ProductBarcode("");
-            price = new Price ( 0 );
+            price = new MoneyValue ( 0 );
         }
 
         public ProductBuilder WithName(string name)
@@ -30,7 +30,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
         }
         public ProductBuilder WithPrice(float value)
         {
-            price = new Price(value);
+            price = new MoneyValue(value);
 
             return this;
         }

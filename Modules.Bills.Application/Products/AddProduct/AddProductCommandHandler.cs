@@ -34,7 +34,7 @@ namespace BillAppDDD.Modules.Bills.Application.Products.AddProduct
             var product = new Product(
                 request.Name,
                 new ProductBarcode(request.Barcode), 
-                new Price(request.Price), 
+                new MoneyValue(request.Price), 
                 category
                 );
 

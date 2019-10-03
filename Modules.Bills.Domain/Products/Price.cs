@@ -1,16 +1,15 @@
 ﻿using BillAppDDD.BuildingBlocks.Domain;
-using System;
 
 namespace BillAppDDD.Modules.Bills.Domain.Products
 {
-    public class Price:ValueObject
+    public class MoneyValue:ValueObject
     {
 
-        private Price()
+        private MoneyValue()
         {
         }
 
-        public Price(float value)
+        public MoneyValue(float value)
         {
             this.Value = value;
         }

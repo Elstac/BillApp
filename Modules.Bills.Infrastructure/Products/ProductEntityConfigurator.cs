@@ -23,7 +23,7 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Products
 
             builder
                 .Property(p => p.Price)
-                .HasConversion(b => b.Value, val => new Price(val))
+                .HasConversion(b => b.Value, val => new MoneyValue(val))
                 .HasColumnName("Price_Value");
 
 

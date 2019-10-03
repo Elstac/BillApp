@@ -13,6 +13,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
         private DateTime date;
         private Store store;
         private List<Purchase> purchases;
+        private MoneyValue sum;
 
         public BillId Id { get; private set; }
         public ICollection<Purchase> Purchases { get => purchases.AsReadOnly();}
@@ -34,6 +35,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             this.store = store;
             this.purchases = purchases;
             CreationDate = DateTime.UtcNow;
+            sum = new MoneyValue(0);
         }
 
         public Bill(
@@ -50,7 +52,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
 
         public float GetSum()
         {
-            return purchases.Sum(p => p.Cost);
+            return sum.Value;
         }
 
         public void AddPurchaseBasedOnExistingProduct(Product product,float amount, float price)
@@ -58,9 +60,11 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             var cost = price / amount;
 
             if(product.Price.Value != cost)
-                product = product.Update("", null, new Price(price / amount) ,null);
+                product = product.Update("", null, new MoneyValue(price / amount) ,null);
 
             purchases.Add(new Purchase(product, this.date, amount, price));
+
+            sum = new MoneyValue(sum.Value + cost);
         }
 
         public void AddPurchaseBasedOnNewProduct(
@@ -75,7 +79,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
                     new Product(
                         name,
                         new ProductBarcode(barcode),
-                        new Price(price/amount),
+                        new MoneyValue(price/amount),
                         category
                         ),
                     this.date,

@@ -1,4 +1,5 @@
 ﻿using BillAppDDD.Modules.Bills.Domain.Products;
+using BillAppDDD.Modules.Bills.Tests.Bills.ProductTests;
 using System;
 using System.Linq;
 using Xunit;
@@ -20,7 +21,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             Assert.Empty(bill.Purchases);
 
-            var product = new Product("", new ProductBarcode(""), new Price(0), null);
+            var product = new Product("", new ProductBarcode(""), new MoneyValue(0), null);
 
             //Act
             bill.AddPurchaseBasedOnExistingProduct(product,0,0);
@@ -39,7 +40,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             Assert.Empty(bill.Purchases);
 
-            var product = new Product("", new ProductBarcode(""), new Price(0), null);
+            var product = new Product("", new ProductBarcode(""), new MoneyValue(0), null);
 
             //Act
             bill.AddPurchaseBasedOnExistingProduct(product, 5.0f, 15.0f);
@@ -57,13 +58,32 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.BillTests
 
             Assert.Empty(bill.Purchases);
 
-            var product = new Product("", new ProductBarcode(""), new Price(12.5f), null);
+            var product = new Product("", new ProductBarcode(""), new MoneyValue(12.5f), null);
 
             //Act
             bill.AddPurchaseBasedOnExistingProduct(product, 2.0f, 25.0f);
 
             //Assert
             Assert.Equal(product, bill.Purchases.FirstOrDefault().Product);
+        }
+
+        [Fact]
+        public void Increase_bill_sum_by_new_purchase_value()
+        {
+            //Arrange
+            var bill = new BillBuilder()
+                .Build();
+
+            Assert.Empty(bill.Purchases);
+
+            var product = new ProductBuilder().Build();
+
+            //Act
+            Assert.Equal(0.0f, bill.GetSum());
+            bill.AddPurchaseBasedOnExistingProduct(product, 1.0f, 25.0f);
+
+            //Assert
+            Assert.Equal(25.0f, bill.GetSum());
         }
     }
 }

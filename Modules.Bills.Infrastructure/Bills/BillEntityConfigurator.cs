@@ -1,4 +1,5 @@
 ﻿using BillAppDDD.Modules.Bills.Domain.Bills;
+using BillAppDDD.Modules.Bills.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -18,6 +19,11 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Bills
                 .IsRequired();
             
             builder.Property<DateTime>("date").HasColumnName("Date");
+
+            builder
+                .Property<MoneyValue>("sum")
+                .HasConversion(b => b.Value, val => new MoneyValue(val))
+                .HasColumnName("Sum_Value");
 
             builder.Metadata.FindNavigation(nameof(Bill.Purchases)).SetPropertyAccessMode(PropertyAccessMode.Field);
         }

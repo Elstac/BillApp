@@ -39,7 +39,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
             var product = new ProductBuilder().Build();
 
             //Act
-            var newProduct = product.Update("name", new ProductBarcode("xx"), new Price(10), null);
+            var newProduct = product.Update("name", new ProductBarcode("xx"), new MoneyValue(10), null);
 
             //Assert
             Assert.Equal("name", newProduct.Name);
@@ -77,7 +77,7 @@ namespace BillAppDDD.Modules.Bills.Tests.Bills.ProductTests
                 .Build();
 
             //Act
-            var newProduct = product.Update("name", new ProductBarcode("xx"), new Price(10), null);
+            var newProduct = product.Update("name", new ProductBarcode("xx"), new MoneyValue(10), null);
 
             //Assert
             Assert.Equal("oldName", product.Name);
