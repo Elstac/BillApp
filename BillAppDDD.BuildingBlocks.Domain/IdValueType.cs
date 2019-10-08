@@ -2,7 +2,7 @@
 
 namespace BillAppDDD.BuildingBlocks.Domain
 {
-    public class IdValueType
+    public class IdValueType: IEquatable<IdValueType>
     {
         public IdValueType(Guid value)
         {

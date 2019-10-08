@@ -48,6 +48,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             this.store = store;
             purchases = new List<Purchase>();
             CreationDate = DateTime.UtcNow;
+            sum = new MoneyValue(0);
         }
 
         public float GetSum()
@@ -87,6 +88,9 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
                     price
                     )
                 );
+
+
+            sum = new MoneyValue(sum.Value + price);
         }
     }
 }

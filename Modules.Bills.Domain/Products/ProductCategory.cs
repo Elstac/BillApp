@@ -13,12 +13,12 @@ namespace BillAppDDD.Modules.Bills.Domain.Products
         public ProductCategory(string name)
         {
             Id = new ProductCategoryId(Guid.NewGuid());
-            Name = name;
+            this.name = name;
             subcategories = new List<ProductCategory>();
             products = new List<Product>();
         }
 
-        private string Name;
+        private string name;
         private List<ProductCategory> subcategories;
         private List<Product> products;
 

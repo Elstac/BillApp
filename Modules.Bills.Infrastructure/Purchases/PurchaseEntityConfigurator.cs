@@ -11,7 +11,8 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Purchases
             builder.HasKey(p => new { p.BillId, p.ProductId });
 
             builder.HasOne(p => p.Bill)
-                .WithMany(b => b.Purchases);
+                .WithMany(b => b.Purchases)
+                .HasForeignKey(p=>p.BillId);
         }
     }
 }
