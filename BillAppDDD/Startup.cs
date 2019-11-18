@@ -56,31 +56,19 @@ namespace BillAppDDD
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
 
-            ConfigureSwagger(app);
+            UseCors(app);
+            UseSwagger(app);
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
             });
         }
 
@@ -99,7 +87,19 @@ namespace BillAppDDD
 
             return new AutofacServiceProvider(builder.Build());
         }
-        private static void ConfigureSwagger(IApplicationBuilder app)
+
+        private void UseCors(IApplicationBuilder app)
+        {
+            var corsConfiguration = Configuration.GetSection("Cors");
+
+            app.UseCors(opt => opt
+            .WithOrigins(corsConfiguration["origins"])
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+        }
+
+
+        private static void UseSwagger(IApplicationBuilder app)
         {
             app.UseSwagger();
 
