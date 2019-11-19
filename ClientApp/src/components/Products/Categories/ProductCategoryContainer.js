@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { ProductCategoryTile } from './ProductCategoryTile';
 import { NewCategoryPopUp } from './NewCategoryPopUp';
+import apiClient from '../../API/apiClient';
 
 export class ProductCategoryContainer extends Component {
     constructor(props) {
@@ -11,11 +12,10 @@ export class ProductCategoryContainer extends Component {
             newCategory: false
         };
 
-        fetch('/api/Products/Categories/GetAll')
-            .then(response => response.json())
+        apiClient.get('/api/Products/Categories/GetAll')
             .then(
                 data => {
-                    this.setState({ categories: data });
+                    this.setState({ categories: data.data });
                 });
     }
 

@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { DropdownList } from 'react-widgets';
+import apiClient from '../API/apiClient';
 
 export class NewProductPopUp extends Component {
     emptyProduct = {
@@ -19,8 +20,7 @@ export class NewProductPopUp extends Component {
             categories: null
         }
 
-        fetch('/api/products/categories/getall')
-            .then(response => response.json())
+        apiClient.get('/api/products/categories/getall')
             .then(data => {
                 this.setState({ categories: data });
             });

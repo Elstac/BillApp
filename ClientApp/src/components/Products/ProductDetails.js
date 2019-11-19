@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import apiClient from '../API/apiClient';
 
 export class ProductDetails extends Component {
     constructor(props) {
@@ -8,13 +9,13 @@ export class ProductDetails extends Component {
             product: null
         };
 
-        fetch('api/products/details/' + this.props.match.params.id)
-            .then(response => response.json())
-            .then(
-                data => {
-                    this.setState({ product: data });
-                })
-            .catch(() => alert('Unable to load product: ' + this.props.match.params.id));
+        apiClient.get('api/products/details/' + this.props.match.params.id)
+                .then(
+                    data => {
+                        this.setState({ product: data });
+                    })
+                .catch(() => alert('Unable to load product: ' + this.props.match.params.id));
+
     }
 
     render() {

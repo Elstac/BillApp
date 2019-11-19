@@ -1,7 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { Spendings } from './Spendings/Spendings';
+import Spendings from './Spendings/Spendings';
 import { StoreSpendingChart } from './Spendings/StoreSpendingChart';
 import { TimeSpan } from '../Shared/TimeSpan';
+import apiClient from '../API/apiClient';
 
 export class StatiticsContainer extends Component {
     constructor(props) {
@@ -13,17 +14,15 @@ export class StatiticsContainer extends Component {
             span: {from:null,to:null}
         }
 
-        fetch('/api/bill/getall')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ bills: data });
-            });
+        apiClient.get('/api/bill/getall')
+        .then(data => {
+            this.setState({ bills: data });
+        });
 
-        fetch('/api/Stores/Spendings/GetAll')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ storeSpendings: data });
-            });
+        apiClient.get('/api/Stores/Spendings/GetAll')
+        .then(data => {
+            this.setState({ storeSpendings: data });
+        });
     }
 
     render() {

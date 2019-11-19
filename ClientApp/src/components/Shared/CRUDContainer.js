@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import apiClient from '../API/apiClient';
 
 export class CRUDContainer extends Component {
     constructor(props,dataFetchUrl) {
@@ -8,10 +9,10 @@ export class CRUDContainer extends Component {
             data: null
         }
 
-        fetch(dataFetchUrl)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ data });
+        apiClient.get(dataFetchUrl)
+        .then(
+            data => {
+                this.setState({ data: data.data });
             });
     }
 

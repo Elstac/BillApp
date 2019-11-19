@@ -2,6 +2,7 @@
 import { DropdownList } from 'react-widgets';
 import { ProductList } from '../Products/ProductsList';
 import { FormInput } from '../Shared/FormInput';
+import apiClient from '../API/apiClient';
 
 export class NewBill extends Component {
     static displayName = NewBill.name;
@@ -18,10 +19,9 @@ export class NewBill extends Component {
             products:[]
         };
 
-        fetch('/api/stores/getall')
-            .then(response => response.json())
+        apiClient.get('/api/stores/getall')
             .then(data => {
-                this.setState({ stores: data });
+                this.setState({ stores: data.data });
             })
     }
 
@@ -42,36 +42,57 @@ export class NewBill extends Component {
     }
 
     handleSubmit() {
-        var request = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                Date: this.state.date,
-                StoreId: this.state.storeId,
-                Purchases: this.state.products.map(p => {
-                    return {
-                        Product: {
-                            Name: p.name,
-                            Barcode: p.barcode,
-                            Id: p.id,
-                            Price: 0,
-                            CategoryId: p.categoryId
-                        },
-                        Date: this.state.date,
-                        Amount: p.amount,
-                        Price: p.price
-                    }
-                })
+        // var request = {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         Date: this.state.date,
+        //         StoreId: this.state.storeId,
+        //         Purchases: this.state.products.map(p => {
+        //             return {
+        //                 Product: {
+        //                     Name: p.name,
+        //                     Barcode: p.barcode,
+        //                     Id: p.id,
+        //                     Price: 0,
+        //                     CategoryId: p.categoryId
+        //                 },
+        //                 Date: this.state.date,
+        //                 Amount: p.amount,
+        //                 Price: p.price
+        //             }
+        //         })
                 
-            })
-        };
+        //     })
+        // };
 
-        fetch('/api/bill/add', request)
+        // fetch('/api/bill/add', request)
+        // .catch((error) => alert('Error during operation. ' + error))
+        // .finally(() => window.location.href = '/')
+        
+        apiClient.post('/api/bill/add',{
+            Date: this.state.date,
+            StoreId: this.state.storeId,
+            Purchases: this.state.products.map(p => {
+                return {
+                    Product: {
+                        Name: p.name,
+                        Barcode: p.barcode,
+                        Id: p.id,
+                        Price: 0,
+                        CategoryId: p.categoryId
+                    },
+                    Date: this.state.date,
+                    Amount: p.amount,
+                    Price: p.price
+                }
+            })
+        })
         .catch((error) => alert('Error during operation. ' + error))
-        .finally(() => window.location.href = '/')
+        .finally(() => window.location.href = '/');
     }
 
     render() {

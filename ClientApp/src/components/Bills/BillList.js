@@ -1,6 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { BillDetailedWindow } from './DetailedBillWindow';
 import { Link } from 'react-router-dom';
+import apiClient from '../API/apiClient';
+
 
 export class BillList extends Component {
     constructor(props) {
@@ -10,12 +12,11 @@ export class BillList extends Component {
             bills: null
         };
 
-        fetch('/api/bill/getall')
-            .then(response => response.json())
-            .then(
-                data => {
-                    this.setState({ bills: data });
-                });
+        apiClient.get('/api/bill/getall')
+        .then(
+            data => {
+                this.setState({ bills: data.data });
+            });
     }
 
     handleRemove(billId) {
@@ -30,15 +31,15 @@ export class BillList extends Component {
                 })  
         };
 
-        fetch('api/bill/remove', request)
-            .catch(()=>alert('Unable to remove bill: ' + billId))
-            .finally(() => {
-                var bills = this.state.bills;
+        apiClient.delete('api/bill/remove',request)
+        .catch(()=>alert('Unable to remove bill: ' + billId))
+        .finally(() => {
+            var bills = this.state.bills;
 
-                bills = bills.filter((value, index, arr) => value.id !== billId);
+            bills = bills.filter((value, index, arr) => value.id !== billId);
 
-                this.setState({ bills });
-            });
+            this.setState({ bills });
+        });
     }
 
     render() {

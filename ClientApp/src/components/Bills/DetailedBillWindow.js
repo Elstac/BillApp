@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import apiClient from '../API/apiClient';
 
 export class BillDetailedWindow extends Component {
     constructor(props) {
@@ -8,11 +9,10 @@ export class BillDetailedWindow extends Component {
             bill: null
         };
 
-        fetch('api/bill/details/' + this.props.match.params.id)
-            .then(response => response.json())
+        apiClient.get('api/bill/details/' + this.props.match.params.id)
             .then(
                 data => {
-                    this.setState({ bill: data });
+                    this.setState({ bill: data.data });
                 })
             .catch(() => alert('Unable to load bill: ' + this.props.match.params.id));
     }
@@ -23,7 +23,8 @@ export class BillDetailedWindow extends Component {
             return (
                 <h1>Loading...</h1>
             );
-
+            
+        console.log(JSON.stringify(bill.purchases));
         return (
             <div className={'container jumbotron text-center py-3 mt-5'}>
                 <h1>Bill details</h1>
