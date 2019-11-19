@@ -18,6 +18,11 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Bills
             builder.Property<string>("name").HasColumnName("Name");
             builder.Property<string>("logoImagePath").HasColumnName("LogoImagePath");
 
+            builder
+                .HasMany(s => s.Bills)
+                .WithOne("store")
+                .HasForeignKey("storeId");
+                //.Metadata.DependentToPrincipal.SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.Metadata.FindNavigation(nameof(Store.Bills)).SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }

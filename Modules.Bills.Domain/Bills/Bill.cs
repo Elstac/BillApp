@@ -12,6 +12,8 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
     {
         private DateTime date;
         private Store store;
+        private StoreId storeId;
+
         private List<Purchase> purchases;
         private MoneyValue sum;
 

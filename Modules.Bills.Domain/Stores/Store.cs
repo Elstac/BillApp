@@ -10,6 +10,7 @@ namespace BillAppDDD.Modules.Bills.Domain.Stores
     {
         private Store()
         {
+            bills = new List<Bill>();
         }
 
         public Store(string name, string logoImagePath)

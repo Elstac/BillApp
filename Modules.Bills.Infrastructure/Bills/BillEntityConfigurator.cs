@@ -1,5 +1,6 @@
 ﻿using BillAppDDD.Modules.Bills.Domain.Bills;
 using BillAppDDD.Modules.Bills.Domain.Products;
+using BillAppDDD.Modules.Bills.Domain.Stores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -19,6 +20,10 @@ namespace BillAppDDD.Modules.Bills.Infrastructure.Bills
                 .IsRequired();
             
             builder.Property<DateTime>("date").HasColumnName("Date");
+
+            builder.Property<StoreId>("storeId")
+                .HasConversion(b => b.Value, val => new StoreId(val))
+                .HasColumnName("StoreId");
 
             builder
                 .Property<MoneyValue>("sum")
