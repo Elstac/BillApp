@@ -20,19 +20,7 @@ export class ProductCategoryContainer extends Component {
     }
 
     handleNewCategoryCreation(category) {
-        
-        var request = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                Name: category.name
-            })
-        };
-        alert(JSON.stringify(request));
-        fetch('/api/products/categories/add', request)
+        apiClient.post('/api/products/categories/add', {Name: category.name})
             .catch((error) => alert('Error during operation. ' + error))
             .finally(() => {
                 var categories = this.state.categories;

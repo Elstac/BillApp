@@ -9,7 +9,8 @@ export class NewProductPopUp extends Component {
         amount: 0,
         expirationDate: undefined,
         price: 0,
-        categoryId: ''
+        categoryId: "00000000-0000-0000-0000-000000000000",
+        id: "00000000-0000-0000-0000-000000000000"
     }
 
     constructor(props) {
@@ -22,7 +23,7 @@ export class NewProductPopUp extends Component {
 
         apiClient.get('/api/products/categories/getall')
             .then(data => {
-                this.setState({ categories: data });
+                this.setState({ categories: data.data });
             });
     }
 

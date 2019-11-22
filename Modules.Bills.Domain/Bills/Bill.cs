@@ -70,29 +70,30 @@ namespace BillAppDDD.Modules.Bills.Domain.Bills
             sum = new MoneyValue(sum.Value + cost);
         }
 
-        public void AddPurchaseBasedOnNewProduct(
+        public Purchase AddPurchaseBasedOnNewProduct(
             string name,
             string barcode,
             ProductCategory category,
             float amount,
             float price)
         {
-            purchases.Add(
-                new Purchase(
+            var newPurchase = new Purchase(
                     new Product(
                         name,
                         new ProductBarcode(barcode),
-                        new MoneyValue(price/amount),
+                        new MoneyValue(price / amount),
                         category
                         ),
                     this.date,
                     amount,
                     price
-                    )
-                );
+                    );
 
+            purchases.Add(newPurchase);
 
             sum = new MoneyValue(sum.Value + price);
+
+            return newPurchase;
         }
     }
 }
