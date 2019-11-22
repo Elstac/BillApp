@@ -84,13 +84,17 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.AddBill
             foreach (var product in newProducts)
             {
                 var prod = product.Product;
-                bill.AddPurchaseBasedOnNewProduct(
+                var newPurchase = bill.AddPurchaseBasedOnNewProduct(
                     prod.Name,
                     prod.Barcode,
                     product.Category,
                     product.Amount,
                     product.Price
                     );
+
+                var category = categories.FirstOrDefault(cat => cat.Id.Value == prod.CategoryId);
+
+                productRepository.Insert(newPurchase.Product);
             }
 
             repository.InsertAggregate(bill);

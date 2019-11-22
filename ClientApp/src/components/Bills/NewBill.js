@@ -98,7 +98,6 @@ export class NewBill extends Component {
     render() {
         return (
             <div className="container">
-                <form onSubmit={this.handleSubmit.bind(this)}>
                     <h1>New bill</h1>
                     <div className="row">
                         <div className="col-12">
@@ -137,10 +136,7 @@ export class NewBill extends Component {
                             />
                         </div>
                     </div>
-                    <div className="text-center mt-3">
-                        <input className="btn btn-success w-75" type="submit" value="Add bill" />
-                    </div>
-                </form>
+                    <button className="btn btn-success" onClick={this.handleSubmit.bind(this)}>Add bill</button>
             </div>
         );
     }
