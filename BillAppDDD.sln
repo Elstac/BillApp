@@ -27,7 +27,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.BuildingBlocks.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.Modules.Bills.Tests", "BillAppDDD.Modules.Bills.Tests\BillAppDDD.Modules.Bills.Tests.csproj", "{EDE79F23-10E7-4819-8EB2-E242F86A9859}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.BuildingBlocks.Infrastructure", "BillAppDDD.BuildingBlocks.Infrastructure\BillAppDDD.BuildingBlocks.Infrastructure.csproj", "{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.BuildingBlocks.Infrastructure", "BillAppDDD.BuildingBlocks.Infrastructure\BillAppDDD.BuildingBlocks.Infrastructure.csproj", "{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserAccess", "UserAccess", "{7EB07998-7AA3-49A7-9393-AC7474FFB5EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.Modules.UserAccess.Application", "..\BillAppDDD.Modules.UserAccess.Application\BillAppDDD.Modules.UserAccess.Application\BillAppDDD.Modules.UserAccess.Application.csproj", "{C7F03023-6ED9-40C1-AB9A-F884F3AAF862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.Modules.UserAccess.Domain", "..\BillAppDDD.Modules.UserAccess.Domain\BillAppDDD.Modules.UserAccess.Domain\BillAppDDD.Modules.UserAccess.Domain.csproj", "{57F64B1A-173E-45A9-9EA4-5908A61C0569}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.Modules.UserAccess.Infrastructure", "..\BillAppDDD.Modules.UserAccess.Infrastructure\BillAppDDD.Modules.UserAccess.Infrastructure\BillAppDDD.Modules.UserAccess.Infrastructure.csproj", "{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +75,18 @@ Global
 		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7F03023-6ED9-40C1-AB9A-F884F3AAF862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7F03023-6ED9-40C1-AB9A-F884F3AAF862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7F03023-6ED9-40C1-AB9A-F884F3AAF862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7F03023-6ED9-40C1-AB9A-F884F3AAF862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F64B1A-173E-45A9-9EA4-5908A61C0569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F64B1A-173E-45A9-9EA4-5908A61C0569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F64B1A-173E-45A9-9EA4-5908A61C0569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F64B1A-173E-45A9-9EA4-5908A61C0569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +101,10 @@ Global
 		{CABDC8D2-B6E9-4678-BDC2-63ECB8BBA232} = {5BED1665-6246-4904-93E8-5864E8EBA509}
 		{EDE79F23-10E7-4819-8EB2-E242F86A9859} = {EE5C3CE9-4534-40DE-B4B8-7597C2D20223}
 		{6A9ADAAE-9614-4ABC-84FE-DA4346DD4A94} = {5BED1665-6246-4904-93E8-5864E8EBA509}
+		{7EB07998-7AA3-49A7-9393-AC7474FFB5EB} = {2393170E-DA94-43F8-BF37-A161ED43C5E4}
+		{C7F03023-6ED9-40C1-AB9A-F884F3AAF862} = {7EB07998-7AA3-49A7-9393-AC7474FFB5EB}
+		{57F64B1A-173E-45A9-9EA4-5908A61C0569} = {7EB07998-7AA3-49A7-9393-AC7474FFB5EB}
+		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E} = {7EB07998-7AA3-49A7-9393-AC7474FFB5EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C5013448-05B9-4D2E-86DB-61331260F9BC}
