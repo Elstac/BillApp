@@ -1,4 +1,5 @@
 ﻿using BillAppDDD.Modules.Bills.Application.Stores.Dto;
+using BillAppDDD.Modules.Bills.Domain.Bills;
 using BillAppDDD.Modules.Bills.Domain.Stores;
 using BillAppDDD.Modules.Bills.Infrastructure;
 using MediatR;
@@ -24,8 +25,8 @@ namespace BillAppDDD.Modules.Bills.Application.Stores.GetAllStoresTotalSpendings
         {
             var storeCollection = storeRepo
                 .Queryable()
+                .AsNoTracking()
                 .Include(s=>s.Bills)
-                .ThenInclude(b=>b.Purchases)
                 .ToList();
 
             var output = storeCollection

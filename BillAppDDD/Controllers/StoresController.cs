@@ -38,7 +38,7 @@ namespace BillAppDDD.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task AddStore(AddStoreRequest store)
+        public async Task AddStore([FromBody] AddStoreRequest store)
         {
             await billsModule.ExecuteCommandAsync(new AddStore(store.Name));
         }
