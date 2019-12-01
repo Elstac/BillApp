@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
+using BillAppDDD.BuildingBlocks.Application;
 using BillAppDDD.BuildingBlocks.Infrastructure;
 using BillAppDDD.Modules.Bills.Application.Bills.Dto;
 using BillAppDDD.Modules.Bills.Application.Stores.Dto;
-using BillAppDDD.Modules.Bills.Domain.Bills;
-using BillAppDDD.Modules.Bills.Infrastructure;
 using Dapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,11 +16,16 @@ namespace BillAppDDD.Modules.Bills.Application.Bills.GetAllBills
     {
         private IDbConnectionFactory dbConnectionFactory;
         private IMapper mapper;
+        private IExecutionContextAccessor executionContext;
 
-        public GetAllBillsQueryHandler(IDbConnectionFactory dbConnectionFactory, IMapper mapper)
+        public GetAllBillsQueryHandler(
+            IDbConnectionFactory dbConnectionFactory,
+            IMapper mapper,
+            IExecutionContextAccessor executionContext)
         {
             this.dbConnectionFactory = dbConnectionFactory;
             this.mapper = mapper;
+            this.executionContext = executionContext;
         }
 
         public async Task<List<BillDto>> Handle(GetAllBills request, CancellationToken cancellationToken)

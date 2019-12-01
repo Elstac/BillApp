@@ -4,6 +4,7 @@ using BillAppDDD.Modules.Bills.Application.Bills.GetAllBills;
 using BillAppDDD.Modules.Bills.Application.Bills.GetBillDetails;
 using BillAppDDD.Modules.Bills.Application.Bills.RemoveBill;
 using BillAppDDD.Modules.Bills.Application.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace BillAppDDD.Controllers
             this.billsModule = billsModule;
         }
 
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ICollection<BillDto>> AllBills()
         {

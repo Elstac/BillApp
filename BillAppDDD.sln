@@ -31,11 +31,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.BuildingBlocks.I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserAccess", "UserAccess", "{7EB07998-7AA3-49A7-9393-AC7474FFB5EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.Modules.UserAccess.Application", "..\BillAppDDD.Modules.UserAccess.Application\BillAppDDD.Modules.UserAccess.Application\BillAppDDD.Modules.UserAccess.Application.csproj", "{C7F03023-6ED9-40C1-AB9A-F884F3AAF862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.Modules.UserAccess.Application", "..\BillAppDDD.Modules.UserAccess.Application\BillAppDDD.Modules.UserAccess.Application\BillAppDDD.Modules.UserAccess.Application.csproj", "{C7F03023-6ED9-40C1-AB9A-F884F3AAF862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.Modules.UserAccess.Domain", "..\BillAppDDD.Modules.UserAccess.Domain\BillAppDDD.Modules.UserAccess.Domain\BillAppDDD.Modules.UserAccess.Domain.csproj", "{57F64B1A-173E-45A9-9EA4-5908A61C0569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.Modules.UserAccess.Domain", "..\BillAppDDD.Modules.UserAccess.Domain\BillAppDDD.Modules.UserAccess.Domain\BillAppDDD.Modules.UserAccess.Domain.csproj", "{57F64B1A-173E-45A9-9EA4-5908A61C0569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.Modules.UserAccess.Infrastructure", "..\BillAppDDD.Modules.UserAccess.Infrastructure\BillAppDDD.Modules.UserAccess.Infrastructure\BillAppDDD.Modules.UserAccess.Infrastructure.csproj", "{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillAppDDD.Modules.UserAccess.Infrastructure", "..\BillAppDDD.Modules.UserAccess.Infrastructure\BillAppDDD.Modules.UserAccess.Infrastructure\BillAppDDD.Modules.UserAccess.Infrastructure.csproj", "{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillAppDDD.BuildingBlocks.Application", "..\BillAppDDD.BuildingBlocks.Application\BillAppDDD.BuildingBlocks.Application\BillAppDDD.BuildingBlocks.Application.csproj", "{64077F57-7E79-4A60-BE2E-619538D5C9AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64077F57-7E79-4A60-BE2E-619538D5C9AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64077F57-7E79-4A60-BE2E-619538D5C9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64077F57-7E79-4A60-BE2E-619538D5C9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64077F57-7E79-4A60-BE2E-619538D5C9AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +111,7 @@ Global
 		{C7F03023-6ED9-40C1-AB9A-F884F3AAF862} = {7EB07998-7AA3-49A7-9393-AC7474FFB5EB}
 		{57F64B1A-173E-45A9-9EA4-5908A61C0569} = {7EB07998-7AA3-49A7-9393-AC7474FFB5EB}
 		{892BDD7B-A644-401A-A7C9-9F84C8A4EA0E} = {7EB07998-7AA3-49A7-9393-AC7474FFB5EB}
+		{64077F57-7E79-4A60-BE2E-619538D5C9AF} = {5BED1665-6246-4904-93E8-5864E8EBA509}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C5013448-05B9-4D2E-86DB-61331260F9BC}
